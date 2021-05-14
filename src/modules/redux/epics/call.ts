@@ -10,26 +10,18 @@ import { Instance, UIContract } from '../types';
 import * as Actions from '../reducers/actions';
 import { RootState } from '../store/rootReducer';
 
-const deploy: Epic<any, any, RootState> = (action$, store): Observable<any> =>
+const deploy: Epic<any, any, RootState> = (action$, store, { api }): Observable<any> =>
   action$.pipe(
     filter(Actions.call.match),
-    mergeMap(({ payload }) => {
-      const url = store.value.ui.connectUrl;
-      const provider = new WsProvider(url);
-      const instance = new ApiRx({ provider, types: {} });
-      const Call = instance.isReady.pipe(
-        map(api => {
-          const { address, method } = payload;
-          const { id } = store.value.ui.instances.find(i => i.address === address) as Instance;
-          const { json } = store.value.ui.contracts.find(c => c.id === id) as UIContract;
-          const abi = new Abi(json as any as AnyJson, api.registry.getChainProperties());
-          const contract = new ContractRx(api, abi, address );
-          const gas = new BN('800000000');
-          const call = contract.tx[method]({ gasLimit: gas });
-          return call;
-        })
-      );
-      return Call;
+    map(({ payload }) => {
+      const { address, method } = payload;
+      const { id } = store.value.ui.instances.find(i => i.address === address) as Instance;
+      const { json } = store.value.ui.contracts.find(c => c.id === id) as UIContract;
+      const abi = new Abi(json as any as AnyJson, api.registry.getChainProperties());
+      const contract = new ContractRx(api, abi, address);
+      const gas = new BN('800000000');
+      const call = contract.tx[method]({ gasLimit: gas });
+      return call;
     }),
     mergeMap(call => {
       const keyring = new Keyring({ type: 'sr25519' });

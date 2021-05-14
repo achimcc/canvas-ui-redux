@@ -1,15 +1,17 @@
-import { applyMiddleware } from 'redux';
 import { createSelectorHook, useDispatch as _useDispatch } from 'react-redux';
 import { configureStore } from '@reduxjs/toolkit';
 import { createEpicMiddleware } from 'redux-observable';
-import { createWrapper, Context, HYDRATE } from 'next-redux-wrapper';
+import { createWrapper } from 'next-redux-wrapper';
 import logger from 'redux-logger';
+import { ApiRx } from '@polkadot/api';
 import rootReducer, { RootState } from './rootReducer';
 
 import rootEpic from './rootEpic';
 
+let api: ApiRx;
+
 const makeStore = () => {
-  const epicMiddleware = createEpicMiddleware<any, any, RootState>();
+  const epicMiddleware = createEpicMiddleware<any, any, RootState>({ dependencies: { api } });
   const store = configureStore({
     reducer: rootReducer,
     middleware: getDefaultMiddleware =>
