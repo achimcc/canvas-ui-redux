@@ -1,6 +1,5 @@
 import { CodeSubmittableResult } from '@polkadot/api-contract/base';
-import { nanoid } from 'nanoid';
-import { createReducer } from '@reduxjs/toolkit';
+import { createReducer, nanoid } from '@reduxjs/toolkit';
 import { ContractStatus, UIMessage, UIContract, ConnectStatus, Instance } from '../types';
 import { obtainMessage } from '../utils/convertResults';
 import * as Actions from './actions';
