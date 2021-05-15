@@ -5,7 +5,7 @@ import { ApiRx, WsProvider } from '@polkadot/api';
 import * as Actions from '../reducers/actions';
 import { RootState } from '../store/rootReducer';
 
-const connect: Epic<any, any, RootState> = (action$): Observable<any> =>
+const connect: Epic<any, any, RootState> = (action$, store, { setApi }): Observable<any> =>
   action$.pipe(
     filter(Actions.connectApi.match),
     switchMap(action => {
@@ -16,9 +16,8 @@ const connect: Epic<any, any, RootState> = (action$): Observable<any> =>
       return instance.isReady;
     }),
     map(api => {
-      api.on('connected', s => {
-        console.log('connect: ', s);
-      });
+      setApi(api);
+      console.log('api: ', api);
       return Actions.apiConnected();
     })
   );

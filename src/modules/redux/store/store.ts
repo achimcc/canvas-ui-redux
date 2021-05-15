@@ -10,8 +10,13 @@ import rootEpic from './rootEpic';
 
 let api: ApiRx;
 
+const setApi = (apiToSet: ApiRx) => (api = apiToSet);
+const getApi = () => !!api && api;
+
 const makeStore = () => {
-  const epicMiddleware = createEpicMiddleware<any, any, RootState>({ dependencies: { api } });
+  const epicMiddleware = createEpicMiddleware<any, any, RootState>({
+    dependencies: { setApi, getApi },
+  });
   const store = configureStore({
     reducer: rootReducer,
     middleware: getDefaultMiddleware =>
