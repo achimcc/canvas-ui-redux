@@ -1,5 +1,5 @@
 import { createSelectorHook, useDispatch as _useDispatch } from 'react-redux';
-import { Action, configureStore, ThunkAction } from '@reduxjs/toolkit';
+import { configureStore } from '@reduxjs/toolkit';
 import { createEpicMiddleware } from 'redux-observable';
 import { createWrapper } from 'next-redux-wrapper';
 import logger from 'redux-logger';
