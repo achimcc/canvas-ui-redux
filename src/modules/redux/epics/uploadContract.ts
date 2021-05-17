@@ -5,7 +5,7 @@ import { Abi } from '@polkadot/api-contract';
 import { Observable, from } from 'rxjs';
 import { u8aToString } from '@polkadot/util';
 import { RootState } from '../store/rootReducer';
-import * as Actions from '../reducers/actions';
+import * as Actions from '../actions/actions';
 import { NOOP, convertResult } from '../utils/convertValues';
 
 const uploadContract: Epic<any, any, RootState> = (action$, store): Observable<any> =>

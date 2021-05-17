@@ -2,7 +2,7 @@ import { Epic } from 'redux-observable';
 import { map, filter, switchMap } from 'rxjs/operators';
 import { Observable } from 'rxjs';
 import { ApiRx, WsProvider } from '@polkadot/api';
-import * as Actions from '../reducers/actions';
+import * as Actions from '../actions/actions';
 import { RootState } from '../store/rootReducer';
 
 const connect: Epic<any, any, RootState> = (action$, store, { setApi }): Observable<any> =>

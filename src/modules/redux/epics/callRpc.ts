@@ -7,7 +7,7 @@ import { Abi, ContractRx } from '@polkadot/api-contract';
 import { ContractCallOutcome } from '@polkadot/api-contract/types';
 import { AnyJson } from '@polkadot/types/types';
 import { RootState } from '../store/rootReducer';
-import * as Actions from '../reducers/actions';
+import * as Actions from '../actions/actions';
 
 const deploy: Epic<any, any, RootState> = (action$, store): Observable<any> =>
   action$.pipe(
@@ -21,8 +21,8 @@ const deploy: Epic<any, any, RootState> = (action$, store): Observable<any> =>
     filter(({ id, json }) => !!id && !!json),
     mergeMap(({ address, method, json }) => {
       const api = store.value.contract.api as ApiRx;
-      const abi = new Abi(json as any as AnyJson, api.registry.getChainProperties());
-      const contract = new ContractRx(api, abi, address );
+      const abi = new Abi(json  as AnyJson, api.registry.getChainProperties());
+      const contract = new ContractRx(api, abi, address);
       const gas = new BN('800000000');
       const keyring = new Keyring({ type: 'sr25519' });
       const alice = keyring.addFromUri('//Alice');

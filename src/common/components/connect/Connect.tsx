@@ -1,6 +1,6 @@
 import { useState } from 'react';
 import { useDispatch, useSelector } from '../../../modules/redux/store/store';
-import * as Actions from '../../../modules/redux/reducers/actions';
+import * as Actions from '../../../modules/redux/actions/actions';
 import InputValue from './InputValue';
 
 const Instantiate = () => {

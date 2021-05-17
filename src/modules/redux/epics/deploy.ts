@@ -2,12 +2,12 @@ import { Epic } from 'redux-observable';
 import { map, mergeMap, takeUntil, filter } from 'rxjs/operators';
 import { Observable } from 'rxjs';
 import { ApiRx, Keyring } from '@polkadot/api';
-import { Abi , CodeRx } from '@polkadot/api-contract';
+import { Abi, CodeRx } from '@polkadot/api-contract';
 
 import BN from 'bn.js';
 import { AnyJson } from '@polkadot/types/types';
 import { RootState } from '../store/rootReducer';
-import * as Actions from '../reducers/actions';
+import * as Actions from '../actions/actions';
 import { obtainStatus } from '../utils/convertResults';
 import { UIContract } from '../types';
 

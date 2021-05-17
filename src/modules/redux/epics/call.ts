@@ -7,7 +7,7 @@ import BN from 'bn.js';
 import { AnyJson } from '@polkadot/types/types';
 import { obtainMessage } from '../utils/convertResults';
 import { Instance, UIContract } from '../types';
-import * as Actions from '../reducers/actions';
+import * as Actions from '../actions/actions';
 import { RootState } from '../store/rootReducer';
 
 const deploy: Epic<any, any, RootState> = (action$, store, { api }): Observable<any> =>

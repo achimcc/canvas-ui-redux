@@ -1,8 +1,9 @@
 import { CodeSubmittableResult } from '@polkadot/api-contract/base';
 import { createReducer, nanoid } from '@reduxjs/toolkit';
+import { HYDRATE } from 'next-redux-wrapper';
 import { ContractStatus, UIMessage, UIContract, ConnectStatus, Instance } from '../types';
 import { obtainMessage } from '../utils/convertResults';
-import * as Actions from './actions';
+import * as Actions from '../actions/actions';
 
 export interface Instantiate {
   deployMessages: Array<UIMessage>;
@@ -10,7 +11,7 @@ export interface Instantiate {
   contractName: string;
   id: string;
 }
-export interface UiState {
+export interface contractState {
   instantiate: Instantiate;
   contracts: Array<UIContract>;
   instances: Array<Instance>;
@@ -19,7 +20,7 @@ export interface UiState {
   connectUrl: string;
 }
 
-const initialState: UiState = {
+const initialState: contractState = {
   instantiate: {
     contractStatus: 'Settings',
     deployMessages: [],
@@ -35,6 +36,9 @@ const initialState: UiState = {
 
 const contractReducer = createReducer(initialState, builder => {
   builder
+    .addCase(HYDRATE, state => {
+      state = state;
+    })
     .addCase(Actions.apiConnected, state => {
       console.log('connected!');
       state.instantiate.contractStatus = 'Upload';
