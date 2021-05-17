@@ -1,16 +1,16 @@
 import { useState } from 'react';
 import { useDispatch, useSelector } from '../../../modules/redux/store/store';
-import * as Actions from '../../../modules/redux/actions/actions';
+import actions from '../../../modules/redux/actions';
 import InputValue from './InputValue';
 
 const Instantiate = () => {
   const dispatch = useDispatch();
   const [url, setUrl] = useState<string>('ws://127.0.0.1:9944');
-  const { connectStatus } = useSelector(store => store.ui);
+  const { connectStatus } = useSelector(store => store.contracts);
   const onConnect = () => {
-    dispatch(Actions.connectApi(url));
+    dispatch(actions.api.connectApi(url));
   };
-  const onDisconnect = () => dispatch(Actions.disconnectApi());
+  const onDisconnect = () => dispatch(actions.api.disconnectApi());
 
   return (
     <>
