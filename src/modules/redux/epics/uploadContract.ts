@@ -5,12 +5,12 @@ import { Abi } from '@polkadot/api-contract';
 import { Observable, from } from 'rxjs';
 import { u8aToString } from '@polkadot/util';
 import { RootState } from '../store/rootReducer';
-import * as Actions from '../actions/actions';
 import { NOOP, convertResult } from '../utils/convertValues';
+import actions from '../actions';
 
 const uploadContract: Epic<any, any, RootState> = (action$, store): Observable<any> =>
   action$.pipe(
-    filter(Actions.storeContract.match),
+    filter(actions.file.storeContract.match),
     mergeMap(action => {
       //     const promise = (action.payload as File).text();
       const { file } = action.payload;
@@ -36,7 +36,7 @@ const uploadContract: Epic<any, any, RootState> = (action$, store): Observable<a
       const wasm = abi.project.source.wasm;
       const methods = abi.messages.map(({ identifier }) => identifier);
       const hash = abi.project.hash.toString();
-      return Actions.notifyUpload(wasm, name, methods, hash, json);
+      return actions.file.notifyUpload(wasm, name, methods, hash, json);
     })
   );
 

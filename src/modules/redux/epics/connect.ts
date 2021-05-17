@@ -2,12 +2,12 @@ import { Epic } from 'redux-observable';
 import { map, filter, switchMap } from 'rxjs/operators';
 import { Observable } from 'rxjs';
 import { ApiRx, WsProvider } from '@polkadot/api';
-import * as Actions from '../actions/actions';
 import { RootState } from '../store/rootReducer';
+import actions from '../actions';
 
 const connect: Epic<any, any, RootState> = (action$, store, { setApi }): Observable<any> =>
   action$.pipe(
-    filter(Actions.connectApi.match),
+    filter(actions.api.connectApi.match),
     switchMap(action => {
       console.log('connect requested!');
       const { url } = action.payload;
@@ -18,7 +18,7 @@ const connect: Epic<any, any, RootState> = (action$, store, { setApi }): Observa
     map(api => {
       setApi(api);
       console.log('api: ', api);
-      return Actions.apiConnected();
+      return actions.api.apiConnected();
     })
   );
 

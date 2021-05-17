@@ -3,7 +3,7 @@ import { createReducer, nanoid } from '@reduxjs/toolkit';
 import { HYDRATE } from 'next-redux-wrapper';
 import { ContractStatus, UIMessage, UIContract, ConnectStatus, Instance } from '../types';
 import { obtainMessage } from '../utils/convertResults';
-import * as Actions from '../actions/actions';
+import actions from '../actions';
 
 export interface Instantiate {
   deployMessages: Array<UIMessage>;
@@ -39,21 +39,21 @@ const contractReducer = createReducer(initialState, builder => {
     .addCase(HYDRATE, state => {
       state = state;
     })
-    .addCase(Actions.apiConnected, state => {
+    .addCase(actions.api.apiConnected, state => {
       console.log('connected!');
       state.instantiate.contractStatus = 'Upload';
       state.connectStatus = 'Connected';
     })
-    .addCase(Actions.connectApi, (state, action) => {
+    .addCase(actions.api.connectApi, (state, action) => {
       console.log('connected!');
       state.instantiate.contractStatus = 'Upload';
       state.connectStatus = 'Connected';
       state.connectUrl = action.payload.url;
     })
-    .addCase(Actions.apiDisconnected, state => {
+    .addCase(actions.api.apiDisconnected, state => {
       state.connectStatus = 'Unconnected';
     })
-    .addCase(Actions.notifyUpload, (state, action) => {
+    .addCase(actions.file.notifyUpload, (state, action) => {
       const { name, methods, wasm, json } = action.payload;
       const contract: UIContract = {
         name,
@@ -64,7 +64,7 @@ const contractReducer = createReducer(initialState, builder => {
       };
       state.contracts.push(contract);
     })
-    .addCase(Actions.instantiateResponse, (state, action) => {
+    .addCase(actions.contract.instantiateResponse, (state, action) => {
       const { result, status } = action.payload;
       const message = obtainMessage(result);
       state.instantiate.deployMessages.push(message);
@@ -80,22 +80,22 @@ const contractReducer = createReducer(initialState, builder => {
         state.instances.push(instance);
       }
     })
-    .addCase(Actions.instantiateContract, (state, action) => {
+    .addCase(actions.contract.instantiateContract, (state, action) => {
       state.instantiate.id = action.payload.id;
       state.instantiate = initialState.instantiate;
     })
-    .addCase(Actions.forgetContract, (state, action) => {
+    .addCase(actions.contract.forgetContract, (state, action) => {
       const { id } = action.payload;
       state.contracts = state.contracts.filter(c => c.id !== id);
     })
-    .addCase(Actions.forgetInstance, (state, action) => {
+    .addCase(actions.contract.forgetInstance, (state, action) => {
       const { address } = action.payload;
       state.instances = state.instances.filter(i => i.address !== address);
     })
-    .addCase(Actions.saveInstanceResponse, (state, action) => {
+    .addCase(actions.contract.saveInstanceResponse, (state, action) => {
       state.callResults.push(action.payload.message);
     })
-    .addCase(Actions.clearResult, state => {
+    .addCase(actions.contract.clearResult, state => {
       state.callResults.length = 0;
     });
 });

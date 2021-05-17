@@ -2,11 +2,11 @@ import { Epic } from 'redux-observable';
 import { map, mergeMap, filter } from 'rxjs/operators';
 import { Observable, from } from 'rxjs';
 import { RootState } from '../store/rootReducer';
-import * as Actions from '../actions/actions';
+import actions from '../actions';
 
 const deploy: Epic<any, any, RootState> = (action$, store, { getApi }): Observable<any> =>
   action$.pipe(
-    filter(Actions.disconnectApi.match),
+    filter(actions.api.disconnectApi.match),
     mergeMap(() => {
       console.log('disconnect: ');
       const api = getApi();

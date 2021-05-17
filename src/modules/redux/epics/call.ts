@@ -1,22 +1,22 @@
 import { Epic } from 'redux-observable';
 import { map, mergeMap, takeUntil, filter } from 'rxjs/operators';
 import { Observable } from 'rxjs';
-import { ApiRx, Keyring, WsProvider } from '@polkadot/api';
+import { Keyring } from '@polkadot/api';
 import { Abi, ContractRx } from '@polkadot/api-contract';
 import BN from 'bn.js';
 import { AnyJson } from '@polkadot/types/types';
 import { obtainMessage } from '../utils/convertResults';
 import { Instance, UIContract } from '../types';
-import * as Actions from '../actions/actions';
 import { RootState } from '../store/rootReducer';
+import actions from '../actions';
 
 const deploy: Epic<any, any, RootState> = (action$, store, { api }): Observable<any> =>
   action$.pipe(
-    filter(Actions.call.match),
+    filter(actions.contract.call.match),
     map(({ payload }) => {
       const { address, method } = payload;
-      const { id } = store.value.ui.instances.find(i => i.address === address) as Instance;
-      const { json } = store.value.ui.contracts.find(c => c.id === id) as UIContract;
+      const { id } = store.value.contracts.instances.find(i => i.address === address) as Instance;
+      const { json } = store.value.contracts.contracts.find(c => c.id === id) as UIContract;
       const abi = new Abi(json as any as AnyJson, api.registry.getChainProperties());
       const contract = new ContractRx(api, abi, address);
       const gas = new BN('800000000');
