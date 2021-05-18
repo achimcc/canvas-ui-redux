@@ -1,11 +1,11 @@
 import Link from 'next/link';
 import { FaFileContract } from 'react-icons/fa';
 import { FiPlayCircle, FiUpload } from 'react-icons/fi';
-import { useSelector } from '../../../modules/redux';
+import { useSelector, selectors } from '../../../modules/redux';
 import ConnectIcon from './ConnectIcon';
 
 const Menu = () => {
-  const { connectStatus: status } = useSelector(store => store.contracts);
+  const status = useSelector(selectors.api.status);
 
   return (
     <>

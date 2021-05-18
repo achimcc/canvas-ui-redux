@@ -1,11 +1,11 @@
 import { useState } from 'react';
-import { useDispatch, useSelector, actions } from '../../../modules/redux';
+import { useDispatch, useSelector, actions, selectors } from '../../../modules/redux';
 import InputValue from './InputValue';
 
 const Instantiate = () => {
   const dispatch = useDispatch();
   const [url, setUrl] = useState<string>('ws://127.0.0.1:9944');
-  const { connectStatus } = useSelector(store => store.contracts);
+  const connectStatus = useSelector(selectors.api.status);
   const onConnect = () => {
     dispatch(actions.api.connect(url));
   };

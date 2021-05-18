@@ -1,6 +1,6 @@
 import { useState } from 'react';
 import { Switch } from '@headlessui/react';
-import { useDispatch, useSelector } from '../../../modules/redux';
+import { useDispatch, useSelector, selectors, actions } from '../../../modules/redux';
 
 interface Props {
   address: string;
@@ -8,10 +8,7 @@ interface Props {
 
 const Call = ({ address }: Props) => {
   const dispatch = useDispatch();
-  const { hash = undefined } =
-    useSelector(store => store.contracts.instances.find(i => i.address === address)) || {};
-  const { methods = [] } =
-    useSelector(store => store.contracts.contracts.find(c => c.hash === hash)) || {};
+  const { methods } = useSelector(selectors.instance.getInstance(address));
   const [method, setMethod] = useState<string>();
   const [rpc, setRpc] = useState<boolean>(true);
   const onCall = () =>

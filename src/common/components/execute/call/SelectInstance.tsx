@@ -1,12 +1,12 @@
 import { useState, useEffect, useCallback } from 'react';
-import { useSelector } from '../../../../modules/redux';
+import { useSelector, selectors } from '../../../../modules/redux';
 
 interface Props {
   address?: string;
   onChange: (address: string) => void;
 }
 const SelectInstance = ({ address, onChange }: Props) => {
-  const { instances = [] } = useSelector(store => store.contracts);
+  const instances = useSelector(selectors.instance.getAll);
   const [selectedAddress, setSelectedAddress] = useState<string | undefined>(undefined);
   const _onChange = useCallback(
     (address: string) => {

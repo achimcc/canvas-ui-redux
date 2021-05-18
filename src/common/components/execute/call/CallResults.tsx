@@ -1,8 +1,8 @@
-import { useSelector } from '../../../../modules/redux';
+import { useSelector, selectors } from '../../../../modules/redux';
 import Message from '../../shared/Message';
 
 const CallResults = () => {
-  const { callResults } = useSelector(store => store.contracts);
+  const callResults = useSelector(selectors.api.callResults);
   return (
     <>
       {callResults.map(message => (
