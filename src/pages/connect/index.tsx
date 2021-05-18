@@ -4,6 +4,7 @@ import type { NextPage } from 'next/types';
 import { useRouter } from 'next/router';
 import { Meta } from '@layout/Meta';
 import React from 'react';
+import { wrapper } from 'src/modules/redux';
 import { Main } from '../../templates/Main';
 import ConnectApi from '../../common/components/connect/Connect';
 
@@ -22,3 +23,7 @@ const Connect: NextPage<Props> = () => {
 };
 
 export default Connect;
+
+export const getServerSideProps = wrapper.getServerSideProps(async ({ store }) => {
+  Promise.resolve();
+});

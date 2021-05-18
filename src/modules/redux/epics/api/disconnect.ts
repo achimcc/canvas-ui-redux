@@ -3,8 +3,13 @@ import { map, mergeMap, filter } from 'rxjs/operators';
 import { Observable, from } from 'rxjs';
 import { RootState } from '../../reducers';
 import actions from '../../actions';
+import { Dependencies } from '../../types';
 
-const deploy: Epic<any, any, RootState> = (action$, store, { getApi }): Observable<any> =>
+const deploy: Epic<any, any, RootState, Dependencies> = (
+  action$,
+  store,
+  { getApi }
+): Observable<any> =>
   action$.pipe(
     filter(actions.api.disconnect.match),
     mergeMap(() => {

@@ -1,3 +1,5 @@
+import { ApiRx } from '@polkadot/api';
+
 export type ContractStatus =
   | 'Endpoint'
   | 'Upload'
@@ -30,3 +32,8 @@ export interface ContractInstance {
 }
 
 export type ConnectStatus = 'Unconnected' | 'Connected' | 'Error';
+
+export interface Dependencies {
+  setApi: (apiToSet: ApiRx) => void;
+  getApi: () => ApiRx;
+}

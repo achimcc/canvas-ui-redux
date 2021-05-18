@@ -6,17 +6,22 @@ import { Abi, ContractRx } from '@polkadot/api-contract';
 import BN from 'bn.js';
 import { AnyJson } from '@polkadot/types/types';
 import { obtainMessage } from '../../utils/convertResults';
-import { Instance, ContractFile } from '../../types';
+import { Instance, ContractFile, Dependencies } from '../../types';
 import { RootState } from '../../reducers';
 import actions from '../../actions';
 
-const call: Epic<any, any, RootState> = (action$, store, { api }): Observable<any> =>
+const call: Epic<any, any, RootState, Dependencies> = (
+  action$,
+  store,
+  { getApi }
+): Observable<any> =>
   action$.pipe(
     filter(actions.instance.call.match),
     map(({ payload }) => {
       const { address, method } = payload;
       const { hash } = store.value.contracts.instances.find(i => i.address === address) as Instance;
       const { json } = store.value.contracts.contracts.find(c => c.hash === hash) as ContractFile;
+      const api = getApi();
       const abi = new Abi(json as any as AnyJson, api.registry.getChainProperties());
       const contract = new ContractRx(api, abi, address);
       const gas = new BN('800000000');

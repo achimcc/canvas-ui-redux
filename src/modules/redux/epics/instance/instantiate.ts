@@ -3,21 +3,25 @@ import { map, mergeMap, takeUntil, filter } from 'rxjs/operators';
 import { Observable } from 'rxjs';
 import { Keyring } from '@polkadot/api';
 import { Abi, CodeRx } from '@polkadot/api-contract';
-
 import BN from 'bn.js';
 import { AnyJson } from '@polkadot/types/types';
 import { RootState } from '../../reducers';
 import { obtainStatus } from '../../utils/convertResults';
-import { ContractFile } from '../../types';
+import { ContractFile, Dependencies } from '../../types';
 import actions from '../../actions';
 
-const instantiate: Epic<any, any, RootState> = (action$, store, { api }): Observable<any> =>
+const instantiate: Epic<any, any, RootState, Dependencies> = (
+  action$,
+  store,
+  { getApi }
+): Observable<any> =>
   action$.pipe(
     filter(actions.instance.instantiate.match),
     map(action => {
       const { gas, endowment, hash } = action.payload;
       const contract = store.value.contracts.contracts.find(c => c.hash === hash) as ContractFile;
       const { wasm, json } = contract;
+      const api = getApi();
       const abi = new Abi(json as any as AnyJson, api.registry.getChainProperties());
       const Gas = new BN(gas);
       const Endowment = new BN(endowment);

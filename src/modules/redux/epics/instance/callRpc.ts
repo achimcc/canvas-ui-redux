@@ -8,8 +8,13 @@ import { ContractCallOutcome } from '@polkadot/api-contract/types';
 import { AnyJson } from '@polkadot/types/types';
 import { RootState } from '../../reducers';
 import actions from '../../actions';
+import { Dependencies } from '../../types';
 
-const callRpc: Epic<any, any, RootState> = (action$, store, { api }): Observable<any> =>
+const callRpc: Epic<any, any, RootState, Dependencies> = (
+  action$,
+  store,
+  { getApi }
+): Observable<any> =>
   action$.pipe(
     filter(actions.instance.callRpc.match),
     map(action => {
@@ -20,6 +25,7 @@ const callRpc: Epic<any, any, RootState> = (action$, store, { api }): Observable
     }),
     filter(({ hash, json }) => !!hash && !!json),
     mergeMap(({ address, method, json }) => {
+      const api = getApi();
       const abi = new Abi(json as AnyJson, api.registry.getChainProperties());
       const contract = new ContractRx(api, abi, address);
       const gas = new BN('800000000');

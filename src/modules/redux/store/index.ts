@@ -7,6 +7,7 @@ import { ApiRx } from '@polkadot/api';
 import { persistReducer } from 'redux-persist';
 import storage from 'redux-persist/lib/storage';
 import rootReducer, { RootState } from '../reducers';
+import { Dependencies } from '../types';
 
 import rootEpic from '../epics';
 
@@ -16,7 +17,7 @@ const setApi = (apiToSet: ApiRx) => (api = apiToSet);
 const getApi = () => !!api && api;
 
 const makeStore = () => {
-  const epicMiddleware = createEpicMiddleware<any, any, RootState>({
+  const epicMiddleware = createEpicMiddleware<any, any, RootState, Dependencies>({
     dependencies: { setApi, getApi },
   });
   const persistConfig = {
