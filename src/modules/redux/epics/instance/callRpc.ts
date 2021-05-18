@@ -6,8 +6,8 @@ import { Keyring } from '@polkadot/api';
 import { Abi, ContractRx } from '@polkadot/api-contract';
 import { ContractCallOutcome } from '@polkadot/api-contract/types';
 import { AnyJson } from '@polkadot/types/types';
-import { RootState } from '../reducers';
-import actions from '../actions';
+import { RootState } from '../../reducers';
+import actions from '../../actions';
 
 const callRpc: Epic<any, any, RootState> = (action$, store, { api }): Observable<any> =>
   action$.pipe(

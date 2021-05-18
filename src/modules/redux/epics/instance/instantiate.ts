@@ -6,10 +6,10 @@ import { Abi, CodeRx } from '@polkadot/api-contract';
 
 import BN from 'bn.js';
 import { AnyJson } from '@polkadot/types/types';
-import { RootState } from '../reducers';
-import { obtainStatus } from '../utils/convertResults';
-import { ContractFile } from '../types';
-import actions from '../actions';
+import { RootState } from '../../reducers';
+import { obtainStatus } from '../../utils/convertResults';
+import { ContractFile } from '../../types';
+import actions from '../../actions';
 
 const instantiate: Epic<any, any, RootState> = (action$, store, { api }): Observable<any> =>
   action$.pipe(

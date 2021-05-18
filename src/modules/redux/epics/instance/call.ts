@@ -5,10 +5,10 @@ import { Keyring } from '@polkadot/api';
 import { Abi, ContractRx } from '@polkadot/api-contract';
 import BN from 'bn.js';
 import { AnyJson } from '@polkadot/types/types';
-import { obtainMessage } from '../utils/convertResults';
-import { Instance, ContractFile } from '../types';
-import { RootState } from '../reducers';
-import actions from '../actions';
+import { obtainMessage } from '../../utils/convertResults';
+import { Instance, ContractFile } from '../../types';
+import { RootState } from '../../reducers';
+import actions from '../../actions';
 
 const call: Epic<any, any, RootState> = (action$, store, { api }): Observable<any> =>
   action$.pipe(

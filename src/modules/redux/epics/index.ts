@@ -1,11 +1,11 @@
 import { combineEpics } from 'redux-observable';
 import { RootState } from '../reducers';
-import connect from './connect';
-import disconnect from './disconnect';
-import instantiate from './instantiate';
-import upload from './uploadContract';
-import call from './call';
-import callRpc from './callRpc';
+import connect from './api/connect';
+import disconnect from './api/disconnect';
+import instantiate from './instance/instantiate';
+import upload from './file/uploadContract';
+import call from './instance/call';
+import callRpc from './instance/callRpc';
 
 const rootEpic = combineEpics<any, any, RootState>(
   connect,
