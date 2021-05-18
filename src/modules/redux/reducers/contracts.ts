@@ -39,18 +39,18 @@ const contractReducer = createReducer(initialState, builder => {
     .addCase(HYDRATE, state => {
       state = state;
     })
-    .addCase(actions.api.apiConnected, state => {
+    .addCase(actions.api.connected, state => {
       console.log('connected!');
       state.instantiate.contractStatus = 'Upload';
       state.connectStatus = 'Connected';
     })
-    .addCase(actions.api.connectApi, (state, action) => {
+    .addCase(actions.api.connect, (state, action) => {
       console.log('connected!');
       state.instantiate.contractStatus = 'Upload';
       state.connectStatus = 'Connected';
       state.connectUrl = action.payload.url;
     })
-    .addCase(actions.api.apiDisconnected, state => {
+    .addCase(actions.api.disconnected, state => {
       state.connectStatus = 'Unconnected';
     })
     .addCase(actions.file.notifyUpload, (state, action) => {
@@ -80,11 +80,11 @@ const contractReducer = createReducer(initialState, builder => {
         state.instances.push(instance);
       }
     })
-    .addCase(actions.contract.instantiateContract, (state, action) => {
+    .addCase(actions.contract.instantiate, (state, action) => {
       state.instantiate.id = action.payload.id;
       state.instantiate = initialState.instantiate;
     })
-    .addCase(actions.contract.forgetContract, (state, action) => {
+    .addCase(actions.file.forget, (state, action) => {
       const { id } = action.payload;
       state.contracts = state.contracts.filter(c => c.id !== id);
     })
@@ -92,7 +92,7 @@ const contractReducer = createReducer(initialState, builder => {
       const { address } = action.payload;
       state.instances = state.instances.filter(i => i.address !== address);
     })
-    .addCase(actions.contract.saveInstanceResponse, (state, action) => {
+    .addCase(actions.contract.instanceResponse, (state, action) => {
       state.callResults.push(action.payload.message);
     })
     .addCase(actions.contract.clearResult, state => {

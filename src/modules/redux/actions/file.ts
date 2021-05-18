@@ -1,7 +1,7 @@
 import { useDispatch as _useDispatch } from 'react-redux';
 import { createAction } from '@reduxjs/toolkit';
 
-export const storeContract = createAction('@file/Uploaded', (file: File) => ({
+export const upload = createAction('@file/Uploaded', (file: File) => ({
   payload: { file },
 }));
 export const notifyUpload = createAction(
@@ -10,3 +10,6 @@ export const notifyUpload = createAction(
     payload: { wasm, name, methods, hash, json },
   })
 );
+export const forget = createAction('@contract/forgetContractRequested', (id: string) => ({
+  payload: { id },
+}));

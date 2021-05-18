@@ -4,13 +4,12 @@ import { Observable, from } from 'rxjs';
 import { RootState } from '../store/rootReducer';
 import actions from '../actions';
 
-const deploy: Epic<any, any, RootState> = (action$, store, { getApi }): Observable<any> =>
+const deploy: Epic<any, any, RootState> = (action$, store, { api }): Observable<any> =>
   action$.pipe(
-    filter(actions.api.disconnectApi.match),
+    filter(actions.api.disconnect.match),
     mergeMap(() => {
       console.log('disconnect: ');
-      const api = getApi();
-      const promise = api && api.disconnect();
+      const promise = (api && api.disconnect()) || new Promise(r => r);
       return from(promise);
     }),
     map(() => {

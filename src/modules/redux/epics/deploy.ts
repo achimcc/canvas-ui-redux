@@ -13,7 +13,7 @@ import actions from '../actions';
 
 const deploy: Epic<any, any, RootState> = (action$, store, { api }): Observable<any> =>
   action$.pipe(
-    filter(actions.contract.instantiateContract.match),
+    filter(actions.contract.instantiate.match),
     map(action => {
       const { gas, endowment, id } = action.payload;
       const contract = store.value.contracts.contracts.find(c => c.id === id) as UIContract;

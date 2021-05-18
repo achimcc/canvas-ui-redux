@@ -8,9 +8,9 @@ const Instantiate = () => {
   const [url, setUrl] = useState<string>('ws://127.0.0.1:9944');
   const { connectStatus } = useSelector(store => store.contracts);
   const onConnect = () => {
-    dispatch(actions.api.connectApi(url));
+    dispatch(actions.api.connect(url));
   };
-  const onDisconnect = () => dispatch(actions.api.disconnectApi());
+  const onDisconnect = () => dispatch(actions.api.disconnect());
 
   return (
     <>

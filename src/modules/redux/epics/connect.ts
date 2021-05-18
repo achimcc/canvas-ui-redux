@@ -7,7 +7,7 @@ import actions from '../actions';
 
 const connect: Epic<any, any, RootState> = (action$, store, { setApi }): Observable<any> =>
   action$.pipe(
-    filter(actions.api.connectApi.match),
+    filter(actions.api.connect.match),
     switchMap(action => {
       console.log('connect requested!');
       const { url } = action.payload;
@@ -18,7 +18,7 @@ const connect: Epic<any, any, RootState> = (action$, store, { setApi }): Observa
     map(api => {
       setApi(api);
       console.log('api: ', api);
-      return actions.api.apiConnected();
+      return actions.api.connected();
     })
   );
 

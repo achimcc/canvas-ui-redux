@@ -10,7 +10,7 @@ import actions from '../actions';
 
 const uploadContract: Epic<any, any, RootState> = (action$, store): Observable<any> =>
   action$.pipe(
-    filter(actions.file.storeContract.match),
+    filter(actions.file.upload.match),
     mergeMap(action => {
       //     const promise = (action.payload as File).text();
       const { file } = action.payload;

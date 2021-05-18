@@ -7,7 +7,6 @@ import React from 'react';
 import Link from 'next/link';
 import { Meta } from '../layout/Meta';
 import { Main } from '../templates/Main';
-import Connect from '../common/components/connect/Connect';
 
 type Props = Record<string, unknown>;
 
@@ -21,7 +20,7 @@ export default function Index(): React.ReactElement<Props> {
           </Link>
         </li>
         <li>
-          <Link href="/connect">
+          <Link href="/connect/test?url=spiegel">
             <a>Connect</a>
           </Link>
         </li>

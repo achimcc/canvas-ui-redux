@@ -3,13 +3,13 @@ import { useDispatch as _useDispatch } from 'react-redux';
 import { createAction } from '@reduxjs/toolkit';
 import { ContractStatus, UIMessage } from '../types';
 
-export const instantiateContract = createAction(
+export const instantiate = createAction(
   '@contract/instaceRequested',
   (id: string, gas: string, endowment: string) => ({
     payload: { id, gas, endowment },
   })
 );
-export const saveInstanceResponse = createAction('@contract/response', (message: UIMessage) => ({
+export const instanceResponse = createAction('@contract/response', (message: UIMessage) => ({
   payload: { message },
 }));
 export const cancelInstantiation = createAction('@contract/requestCancel');
@@ -21,9 +21,7 @@ export const callRpc = createAction(
   (address: string, method: string) => ({ payload: { address, method } })
 );
 export const clearResult = createAction('@contract/clearResultsRequested');
-export const forgetContract = createAction('@contract/forgetContractRequested', (id: string) => ({
-  payload: { id },
-}));
+
 export const forgetInstance = createAction(
   '@contract/forgetIOnstanceRequested',
   (address: string) => ({ payload: { address } })
