@@ -1,21 +1,21 @@
 import { useState } from 'react';
 
-import { useDispatch, actions } from '../../../modules/redux';
+import { useActions } from '../../../modules/redux';
 
 interface Props {
   onSave: () => void;
 }
 
 const UploadFile = ({ onSave }: Props) => {
-  const dispatch = useDispatch();
-  const [file, setFile] = useState<File | undefined>(undefined);
+  const { file } = useActions();
+  const [selectedFile, setSelectedFile] = useState<File | undefined>(undefined);
   const handleChange = ({ currentTarget: { files } }: React.ChangeEvent<HTMLInputElement>) => {
     const file = files && files[0];
-    file && setFile(file);
+    file && setSelectedFile(file);
   };
   const _onSave = () => {
-    if (!file) return;
-    dispatch(actions.file.upload(file));
+    if (!selectedFile) return;
+    file.upload(selectedFile);
     onSave();
   };
 

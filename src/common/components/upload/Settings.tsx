@@ -1,5 +1,5 @@
 import { useState } from 'react';
-import { useDispatch, useSelector, actions, selectors } from '../../../modules/redux';
+import { useActions, useSelector, selectors } from '../../../modules/redux';
 import InputValue from '../shared/InputValue';
 
 interface Props {
@@ -7,11 +7,11 @@ interface Props {
 }
 
 const Settings = ({ hash }: Props) => {
-  const dispatch = useDispatch();
+  const { instance } = useActions();
   const { name = 'Error' } = useSelector(selectors.file.byHash(hash));
   const [gas, setGas] = useState<string>('200000000000');
   const [endowment, setEndowment] = useState<string>('1000000000000000');
-  const onInstantiate = () => dispatch(actions.instance.instantiate(gas, endowment, hash));
+  const onInstantiate = () => instance.instantiate(gas, endowment, hash);
   return (
     <>
       <h2>{name}</h2>

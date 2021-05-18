@@ -33,10 +33,9 @@ export const callResponse = createAction(
 
 export const clearResult = createAction('@contract/clearResultsRequested');
 
-export const forgetInstance = createAction(
-  '@contract/forgetInstanceRequested',
-  (address: string) => ({ payload: { address } })
-);
+export const forget = createAction('@contract/forgetInstanceRequested', (address: string) => ({
+  payload: { address },
+}));
 
 export const instantiated = createAction(
   '@contract/instantiateReponse',

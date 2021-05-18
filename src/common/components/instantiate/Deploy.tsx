@@ -1,4 +1,4 @@
-import { useDispatch, UIMessage, actions } from '../../../modules/redux';
+import { UIMessage, useActions } from '../../../modules/redux';
 import Message from '../shared/Message';
 import Cancel from './Cancel';
 
@@ -8,9 +8,9 @@ interface Props {
 }
 
 const Deploy = ({ messages, isDeploying }: Props) => {
-  const dispatch = useDispatch();
+  const { instance } = useActions();
   const history = [];
-  const onCancelDeploy = () => dispatch(actions.instance.cancelInstantiation());
+  const onCancelDeploy = () => instance.cancelInstantiation();
   const onSuccess = () => {
     history.push('/execute');
   };

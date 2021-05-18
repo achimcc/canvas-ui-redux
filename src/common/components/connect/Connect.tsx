@@ -1,15 +1,15 @@
 import { useState } from 'react';
-import { useDispatch, useSelector, actions, selectors } from '../../../modules/redux';
+import { useSelector, selectors, useActions } from '../../../modules/redux';
 import InputValue from './InputValue';
 
 const Connect = () => {
-  const dispatch = useDispatch();
+  const { api } = useActions();
   const [url, setUrl] = useState<string>('ws://127.0.0.1:9944');
   const connectStatus = useSelector(selectors.api.status);
   const onConnect = () => {
-    dispatch(actions.api.connect(url));
+    api.connect(url);
   };
-  const onDisconnect = () => dispatch(actions.api.disconnect());
+  const onDisconnect = () => api.disconnect();
 
   return (
     <>

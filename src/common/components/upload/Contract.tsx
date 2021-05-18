@@ -1,4 +1,4 @@
-import { useDispatch, ContractFile, actions } from '../../../modules/redux';
+import { ContractFile, useActions } from '../../../modules/redux';
 import { useModal } from '../shared/Modal/useModal';
 import Instantiate from './Instantiate';
 
@@ -7,11 +7,10 @@ interface Props {
 }
 
 const Contract = ({ contract: { name, hash } }: Props) => {
-  const dispatch = useDispatch();
-  const onDelete = () => dispatch(actions.file.forget(hash));
+  const { file } = useActions();
+  const onDelete = () => file.forget(hash);
   const { show, RenderModal } = useModal();
   const onInstantiate = () => {
-    dispatch({ type: 'StartInstantiate' });
     show();
   };
   return (

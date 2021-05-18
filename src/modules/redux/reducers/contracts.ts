@@ -77,7 +77,7 @@ const contractReducer = createReducer(initialState, builder => {
     .addCase(actions.file.forget, (state, { payload: { hash } }) => {
       state.contracts = state.contracts.filter(c => c.hash !== hash);
     })
-    .addCase(actions.instance.forgetInstance, (state, action) => {
+    .addCase(actions.instance.forget, (state, action) => {
       const { address } = action.payload;
       state.instances = state.instances.filter(i => i.address !== address);
     })
