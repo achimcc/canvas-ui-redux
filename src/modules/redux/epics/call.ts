@@ -32,10 +32,7 @@ const call: Epic<any, any, RootState> = (action$, store, { api }): Observable<an
     takeUntil(action$.pipe(filter(actions.contract.cancelCall.match))),
     map(response => {
       const message = obtainMessage(response);
-      return {
-        type: 'CallResult',
-        payload: { message },
-      };
+      actions.contract.instanceResponse(message);
     })
   );
 

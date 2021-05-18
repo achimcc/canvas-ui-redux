@@ -33,10 +33,7 @@ const instantiate: Epic<any, any, RootState> = (action$, store, { api }): Observ
     takeUntil(action$.pipe(filter(actions.contract.cancelInstantiation.match))),
     map(result => {
       const status = obtainStatus(result);
-      return {
-        type: 'DeployMessage',
-        payload: { result, status },
-      };
+      return actions.contract.instantiated(result, status);
     })
   );
 

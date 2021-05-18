@@ -55,7 +55,7 @@ const contractReducer = createReducer(initialState, builder => {
       const contract: ContractFile = { ...payload };
       state.contracts.push(contract);
     })
-    .addCase(actions.contract.instantiateResponse, (state, action) => {
+    .addCase(actions.contract.instantiated, (state, action) => {
       const { result, status } = action.payload;
       const message = obtainMessage(result);
       state.instantiate.deployMessages.push(message);

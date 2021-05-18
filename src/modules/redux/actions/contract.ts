@@ -26,6 +26,11 @@ export const callRpc = createAction(
 
 export const cancelCall = createAction('@contract/cancelCall');
 
+export const callResponse = createAction(
+  '@contract/instanceCallResponded',
+  (message: UIMessage) => ({ payload: { message } })
+);
+
 export const clearResult = createAction('@contract/clearResultsRequested');
 
 export const forgetInstance = createAction(
@@ -33,7 +38,7 @@ export const forgetInstance = createAction(
   (address: string) => ({ payload: { address } })
 );
 
-export const instantiateResponse = createAction(
+export const instantiated = createAction(
   '@contract/instantiateReponse',
   (result: ISubmittableResult, status: ContractStatus) => ({
     payload: { result, status },

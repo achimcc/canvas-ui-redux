@@ -12,9 +12,7 @@ const deploy: Epic<any, any, RootState> = (action$, store, { api }): Observable<
       return from(promise);
     }),
     map(() => {
-      return {
-        type: 'Disconnected',
-      };
+      return actions.api.disconnected();
     })
   );
 

@@ -36,10 +36,7 @@ const callRpc: Epic<any, any, RootState> = (action$, store, { api }): Observable
         text: `RPC Call output: ${response.output}`,
         isError: false,
       };
-      return {
-        type: 'CallResult',
-        payload: { message },
-      };
+      actions.contract.instanceResponse(message);
     })
   );
 
