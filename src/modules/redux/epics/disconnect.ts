@@ -1,7 +1,7 @@
 import { Epic } from 'redux-observable';
 import { map, mergeMap, filter } from 'rxjs/operators';
 import { Observable, from } from 'rxjs';
-import { RootState } from '../store/rootReducer';
+import { RootState } from '../reducers';
 import actions from '../actions';
 
 const deploy: Epic<any, any, RootState> = (action$, store, { api }): Observable<any> =>

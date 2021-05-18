@@ -1,6 +1,6 @@
 import { combineReducers } from 'redux';
 
-import contracts, { contractState } from '../reducers/contracts';
+import contracts, { contractState } from './contracts';
 
 const rootReducer = combineReducers({
   contracts,

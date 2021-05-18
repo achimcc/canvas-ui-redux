@@ -6,7 +6,7 @@ import { Abi, CodeRx } from '@polkadot/api-contract';
 
 import BN from 'bn.js';
 import { AnyJson } from '@polkadot/types/types';
-import { RootState } from '../store/rootReducer';
+import { RootState } from '../reducers';
 import { obtainStatus } from '../utils/convertResults';
 import { ContractFile } from '../types';
 import actions from '../actions';

@@ -4,7 +4,7 @@ import { ApiRx } from '@polkadot/api';
 import { Abi } from '@polkadot/api-contract';
 import { Observable, from } from 'rxjs';
 import { u8aToString } from '@polkadot/util';
-import { RootState } from '../store/rootReducer';
+import { RootState } from '../reducers';
 import { NOOP, convertResult } from '../utils/convertValues';
 import actions from '../actions';
 

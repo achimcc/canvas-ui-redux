@@ -4,9 +4,9 @@ import { createEpicMiddleware } from 'redux-observable';
 import { createWrapper } from 'next-redux-wrapper';
 import logger from 'redux-logger';
 import { ApiRx } from '@polkadot/api';
-import rootReducer, { RootState } from './rootReducer';
+import rootReducer, { RootState } from '../reducers';
 
-import rootEpic from './rootEpic';
+import rootEpic from '../epics';
 
 let api: ApiRx;
 
