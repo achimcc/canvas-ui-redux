@@ -4,10 +4,11 @@ import { Observable, from } from 'rxjs';
 import { RootState } from '../../reducers';
 import actions from '../../actions';
 
-const deploy: Epic<any, any, RootState> = (action$, store, { api }): Observable<any> =>
+const deploy: Epic<any, any, RootState> = (action$, store, { getApi }): Observable<any> =>
   action$.pipe(
     filter(actions.api.disconnect.match),
     mergeMap(() => {
+      const api = getApi();
       const promise = (api && api.disconnect()) || new Promise(r => r);
       return from(promise);
     }),

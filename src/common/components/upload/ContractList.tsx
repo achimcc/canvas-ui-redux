@@ -1,7 +1,7 @@
 import { useSelector, selectors } from '../../../modules/redux';
-import Contract from './ContractFile';
+import Contract from './Contract';
 
-const ContractFiles = () => {
+const ContractList = () => {
   const contracts = useSelector(selectors.file.allContracts);
   return (
     <div className="h-100 w-full flex items-center justify-center bg-teal-lightest font-sans my-3.5">
@@ -16,4 +16,4 @@ const ContractFiles = () => {
   );
 };
 
-export default ContractFiles;
+export default ContractList;

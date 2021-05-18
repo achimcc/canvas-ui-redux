@@ -1,8 +1,10 @@
 import { useEffect, useState } from 'react';
+import { Meta } from '@layout/Meta';
 import Call from '../../common/components/call/Call';
 import CallResults from '../../common/components/call/CallResults';
 import SelectInstance from '../../common/components/call/SelectInstance';
-import { useDispatch } from "../../modules/redux";
+import { useDispatch } from '../../modules/redux';
+import { Main } from '../../templates/Main';
 
 interface Params {
   address?: string;
@@ -15,7 +17,7 @@ const CallPage = ({ address }: Params) => {
     dispatch({ type: 'ClearCallResults' });
   }, [dispatch]);
   return (
-    <>
+    <Main meta={<Meta description="..." title="Canvas UI" />}>
       <div className="h-100 w-full flex items-center justify-center bg-teal-lightest font-sans my-3.5">
         <SelectInstance address={selectedAddress} onChange={setSelectedAddress} />{' '}
       </div>
@@ -26,7 +28,7 @@ const CallPage = ({ address }: Params) => {
         Results:
         <CallResults />
       </div>
-    </>
+    </Main>
   );
 };
 export default CallPage;

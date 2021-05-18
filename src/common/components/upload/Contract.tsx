@@ -6,7 +6,7 @@ interface Props {
   contract: ContractFile;
 }
 
-const ContractFile = ({ contract: { name, hash } }: Props) => {
+const Contract = ({ contract: { name, hash } }: Props) => {
   const dispatch = useDispatch();
   const onDelete = () => dispatch(actions.file.forget(hash));
   const { show, RenderModal } = useModal();
@@ -38,4 +38,4 @@ const ContractFile = ({ contract: { name, hash } }: Props) => {
   );
 };
 
-export default ContractFile;
+export default Contract;

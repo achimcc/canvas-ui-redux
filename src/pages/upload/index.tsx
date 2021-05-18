@@ -1,7 +1,9 @@
 import React from 'react';
+import { Meta } from '@layout/Meta';
+import { Main } from '../../templates/Main';
 import { useModal } from '../../common/components/shared/Modal/useModal';
 import Upload from '../../common/components/upload/UploadFile';
-import Contracts from '../../common/components/upload/ContractFiles';
+import Contracts from '../../common/components/upload/ContractList';
 
 const UploadPage = () => {
   const { show: showUpload, RenderModal, hide: hideUpload } = useModal();
@@ -9,7 +11,7 @@ const UploadPage = () => {
     showUpload();
   };
   return (
-    <div>
+    <Main meta={<Meta description="..." title="Canvas UI" />}>
       <div className="w-full">
         <div className="w-full text-right">
           <button
@@ -28,7 +30,7 @@ const UploadPage = () => {
       <div className="w-full mt-5">
         <Contracts />
       </div>
-    </div>
+    </Main>
   );
 };
 
