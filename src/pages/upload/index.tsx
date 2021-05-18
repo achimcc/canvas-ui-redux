@@ -1,9 +1,9 @@
 import React from 'react';
 import { useModal } from '../../common/components/shared/Modal/useModal';
-import Upload from '../../common/components/UploadFile';
-import Contracts from '../components/upload/ContractFiles';
+import Upload from '../../common/components/upload/UploadFile';
+import Contracts from '../../common/components/upload/ContractFiles';
 
-const UploadPage = React.memo(() => {
+const UploadPage = () => {
   const { show: showUpload, RenderModal, hide: hideUpload } = useModal();
   const onUpload = () => {
     showUpload();
@@ -30,6 +30,6 @@ const UploadPage = React.memo(() => {
       </div>
     </div>
   );
-});
+};
 
 export default UploadPage;
