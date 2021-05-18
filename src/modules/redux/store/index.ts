@@ -4,6 +4,8 @@ import { createEpicMiddleware } from 'redux-observable';
 import { createWrapper } from 'next-redux-wrapper';
 import logger from 'redux-logger';
 import { ApiRx } from '@polkadot/api';
+import { persistReducer } from 'redux-persist';
+import storage from 'redux-persist/lib/storage';
 import rootReducer, { RootState } from '../reducers';
 
 import rootEpic from '../epics';
@@ -17,8 +19,13 @@ const makeStore = () => {
   const epicMiddleware = createEpicMiddleware<any, any, RootState>({
     dependencies: { setApi, getApi },
   });
+  const persistConfig = {
+    key: 'root',
+    storage,
+  };
+  const persistedReducer = persistReducer(persistConfig, rootReducer);
   const store = configureStore({
-    reducer: rootReducer,
+    reducer: persistedReducer,
     middleware: getDefaultMiddleware =>
       getDefaultMiddleware().prepend(epicMiddleware).concat(logger),
   });

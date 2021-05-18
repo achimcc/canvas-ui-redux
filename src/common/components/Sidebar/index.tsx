@@ -10,7 +10,7 @@ export default function Sidebar(): React.ReactElement<Props> {
     <div className="border-r-2 w-72 h-screen border-gray-700">
       <ul>
         <li>
-          <Link href="/connect/test?url=spiegel">
+          <Link href="/connect">
             <a>Connect API</a>
           </Link>
         </li>

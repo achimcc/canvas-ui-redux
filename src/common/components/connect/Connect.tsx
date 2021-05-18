@@ -2,7 +2,7 @@ import { useState } from 'react';
 import { useDispatch, useSelector, actions, selectors } from '../../../modules/redux';
 import InputValue from './InputValue';
 
-const Instantiate = () => {
+const Connect = () => {
   const dispatch = useDispatch();
   const [url, setUrl] = useState<string>('ws://127.0.0.1:9944');
   const connectStatus = useSelector(selectors.api.status);
@@ -44,4 +44,4 @@ const Instantiate = () => {
   );
 };
 
-export default Instantiate;
+export default Connect;
