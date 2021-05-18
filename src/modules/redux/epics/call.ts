@@ -12,7 +12,7 @@ import actions from '../actions';
 
 const call: Epic<any, any, RootState> = (action$, store, { api }): Observable<any> =>
   action$.pipe(
-    filter(actions.contract.call.match),
+    filter(actions.instance.call.match),
     map(({ payload }) => {
       const { address, method } = payload;
       const { hash } = store.value.contracts.instances.find(i => i.address === address) as Instance;
@@ -29,10 +29,10 @@ const call: Epic<any, any, RootState> = (action$, store, { api }): Observable<an
       const observable = call.signAndSend(alice);
       return observable;
     }),
-    takeUntil(action$.pipe(filter(actions.contract.cancelCall.match))),
+    takeUntil(action$.pipe(filter(actions.instance.cancelCall.match))),
     map(response => {
       const message = obtainMessage(response);
-      actions.contract.instanceResponse(message);
+      actions.instance.instanceResponse(message);
     })
   );
 

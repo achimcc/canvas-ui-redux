@@ -11,7 +11,7 @@ import actions from '../actions';
 
 const callRpc: Epic<any, any, RootState> = (action$, store, { api }): Observable<any> =>
   action$.pipe(
-    filter(actions.contract.callRpc.match),
+    filter(actions.instance.callRpc.match),
     map(action => {
       const { address } = action.payload;
       const { hash } = store.value.contracts.instances.find(i => i.address === address) || {};
@@ -29,14 +29,14 @@ const callRpc: Epic<any, any, RootState> = (action$, store, { api }): Observable
       const call = contract.query[method](adds, { gasLimit: gas });
       return call;
     }),
-    takeUntil(action$.pipe(filter(actions.contract.cancelCall.match))),
+    takeUntil(action$.pipe(filter(actions.instance.cancelCall.match))),
     map(response => response as unknown as ContractCallOutcome),
     map(response => {
       const message = {
         text: `RPC Call output: ${response.output}`,
         isError: false,
       };
-      actions.contract.instanceResponse(message);
+      actions.instance.instanceResponse(message);
     })
   );
 

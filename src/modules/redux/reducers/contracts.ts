@@ -55,7 +55,7 @@ const contractReducer = createReducer(initialState, builder => {
       const contract: ContractFile = { ...payload };
       state.contracts.push(contract);
     })
-    .addCase(actions.contract.instantiated, (state, action) => {
+    .addCase(actions.instance.instantiated, (state, action) => {
       const { result, status } = action.payload;
       const message = obtainMessage(result);
       state.instantiate.deployMessages.push(message);
@@ -71,20 +71,20 @@ const contractReducer = createReducer(initialState, builder => {
         state.instances.push(instance);
       }
     })
-    .addCase(actions.contract.instantiate, (state, { payload: { hash } }) => {
+    .addCase(actions.instance.instantiate, (state, { payload: { hash } }) => {
       state.instantiate = { ...initialState.instantiate, hash };
     })
     .addCase(actions.file.forget, (state, { payload: { hash } }) => {
       state.contracts = state.contracts.filter(c => c.hash !== hash);
     })
-    .addCase(actions.contract.forgetInstance, (state, action) => {
+    .addCase(actions.instance.forgetInstance, (state, action) => {
       const { address } = action.payload;
       state.instances = state.instances.filter(i => i.address !== address);
     })
-    .addCase(actions.contract.instanceResponse, (state, action) => {
+    .addCase(actions.instance.instanceResponse, (state, action) => {
       state.callResults.push(action.payload.message);
     })
-    .addCase(actions.contract.clearResult, state => {
+    .addCase(actions.instance.clearResult, state => {
       state.callResults.length = 0;
     });
 });

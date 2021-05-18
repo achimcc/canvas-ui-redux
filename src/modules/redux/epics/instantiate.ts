@@ -13,7 +13,7 @@ import actions from '../actions';
 
 const instantiate: Epic<any, any, RootState> = (action$, store, { api }): Observable<any> =>
   action$.pipe(
-    filter(actions.contract.instantiate.match),
+    filter(actions.instance.instantiate.match),
     map(action => {
       const { gas, endowment, hash } = action.payload;
       const contract = store.value.contracts.contracts.find(c => c.hash === hash) as ContractFile;
@@ -30,10 +30,10 @@ const instantiate: Epic<any, any, RootState> = (action$, store, { api }): Observ
       return instance.signAndSend(alice);
     }),
     // takeWhile((response) => !response.dispatchError),
-    takeUntil(action$.pipe(filter(actions.contract.cancelInstantiation.match))),
+    takeUntil(action$.pipe(filter(actions.instance.cancelInstantiation.match))),
     map(result => {
       const status = obtainStatus(result);
-      return actions.contract.instantiated(result, status);
+      return actions.instance.instantiated(result, status);
     })
   );
 
