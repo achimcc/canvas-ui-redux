@@ -8,7 +8,6 @@ const deploy: Epic<any, any, RootState> = (action$, store, { api }): Observable<
   action$.pipe(
     filter(actions.api.disconnect.match),
     mergeMap(() => {
-      console.log('disconnect: ');
       const promise = (api && api.disconnect()) || new Promise(r => r);
       return from(promise);
     }),

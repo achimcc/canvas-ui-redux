@@ -9,7 +9,6 @@ const connect: Epic<any, any, RootState> = (action$, store, { setApi }): Observa
   action$.pipe(
     filter(actions.api.connect.match),
     switchMap(action => {
-      console.log('connect requested!');
       const { url } = action.payload;
       const provider = new WsProvider(url);
       const instance = new ApiRx({ provider, types: {} });
@@ -17,7 +16,6 @@ const connect: Epic<any, any, RootState> = (action$, store, { setApi }): Observa
     }),
     map(api => {
       setApi(api);
-      console.log('api: ', api);
       return actions.api.connected();
     })
   );

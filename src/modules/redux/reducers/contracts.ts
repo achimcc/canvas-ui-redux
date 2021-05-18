@@ -40,12 +40,10 @@ const contractReducer = createReducer(initialState, builder => {
       state = state;
     })
     .addCase(actions.api.connected, state => {
-      console.log('connected!');
       state.instantiate.contractStatus = 'Upload';
       state.connectStatus = 'Connected';
     })
     .addCase(actions.api.connect, (state, action) => {
-      console.log('connected!');
       state.instantiate.contractStatus = 'Upload';
       state.connectStatus = 'Connected';
       state.connectUrl = action.payload.url;
