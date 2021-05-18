@@ -1,6 +1,6 @@
 import { useState } from 'react';
 import { Switch } from '@headlessui/react';
-import { useDispatch, useSelector, selectors } from '../../../../modules/redux';
+import { useDispatch, useSelector, selectors, actions } from '../../../../modules/redux';
 
 interface Props {
   address: string;
@@ -12,7 +12,11 @@ const Call = ({ address }: Props) => {
   const [method, setMethod] = useState<string>();
   const [rpc, setRpc] = useState<boolean>(true);
   const onCall = () =>
-    method && address && dispatch({ type: rpc ? 'CallRpc' : 'Call', payload: { address, method } });
+    method &&
+    address &&
+    dispatch(
+      rpc ? actions.instance.callRpc(address, method) : actions.instance.call(address, method)
+    );
   return (
     <>
       {address && (

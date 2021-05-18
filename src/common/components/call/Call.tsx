@@ -12,7 +12,11 @@ const Call = ({ address }: Props) => {
   const [method, setMethod] = useState<string>();
   const [rpc, setRpc] = useState<boolean>(true);
   const onCall = () =>
-    method && address && dispatch({ type: rpc ? 'CallRpc' : 'Call', payload: { address, method } });
+    method &&
+    address &&
+    dispatch(
+      rpc ? actions.instance.callRpc(address, method) : actions.instance.call(address, method)
+    );
   return (
     <>
       {address && (

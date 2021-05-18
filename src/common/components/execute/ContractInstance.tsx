@@ -1,5 +1,5 @@
 import Link from 'next/link';
-import { useDispatch, Instance } from '../../../modules/redux';
+import { useDispatch, Instance, actions } from '../../../modules/redux';
 
 interface Props {
   instance: Instance;
@@ -7,11 +7,7 @@ interface Props {
 
 const ContractInstance = ({ instance }: Props) => {
   const dispatch = useDispatch();
-  const onForget = () =>
-    dispatch({
-      type: 'ForgetInstance',
-      payload: { address: instance.address },
-    });
+  const onForget = () => dispatch(actions.instance.forgetInstance(instance.address));
   return (
     <>
       {' '}

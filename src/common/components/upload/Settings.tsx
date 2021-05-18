@@ -1,17 +1,17 @@
 import { useState } from 'react';
-import { useDispatch, useSelector } from '../../store/store';
+import { useDispatch, useSelector, actions, selectors } from '../../../modules/redux';
 import InputValue from '../shared/InputValue';
 
 interface Props {
-  id: string;
+  hash: string;
 }
 
-const Settings = ({ id }: Props) => {
+const Settings = ({ hash }: Props) => {
   const dispatch = useDispatch();
-  const { name = 'Error' } = useSelector(store => store.ui.contracts.find(c => c.id === id)) || {};
+  const { name = 'Error' } = useSelector(selectors.file.byHash(hash));
   const [gas, setGas] = useState<string>('200000000000');
   const [endowment, setEndowment] = useState<string>('1000000000000000');
-  const onInstantiate = () => dispatch({ type: 'Instantiate', payload: { gas, endowment, id } });
+  const onInstantiate = () => dispatch(actions.instance.instantiate(gas, endowment, hash));
   return (
     <>
       <h2>{name}</h2>

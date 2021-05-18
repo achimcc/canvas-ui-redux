@@ -1,16 +1,16 @@
-import { useSelector } from '../../store/store';
-import UploadFile from '../UploadFile';
+import { useSelector } from '../../../modules/redux';
 import Connect from '../connect/Connect';
 import Progress from '../shared/Progress/Progress';
 import Deploy from '../instantiate/Deploy';
+import UploadFile from './UploadFile';
 import Settings from './Settings';
 
 interface Props {
-  id: string;
+  hash: string;
 }
 
-const Instantiate = ({ id }: Props) => {
-  const { contractStatus, deployMessages } = useSelector(store => store.ui.instantiate);
+const Instantiate = ({ hash }: Props) => {
+  const { contractStatus, deployMessages } = useSelector(store => store.contracts.instantiate);
   const progress = {
     Endpoint: 0,
     Upload: 25,
@@ -22,7 +22,7 @@ const Instantiate = ({ id }: Props) => {
   const statusComponent = {
     Endpoint: Connect,
     Upload: () => UploadFile({ onSave: () => {} }),
-    Settings: () => Settings({ id }),
+    Settings: () => Settings({ hash }),
     Deploying: () => Deploy({ messages: deployMessages, isDeploying: true }),
     Deployed: () => Deploy({ messages: deployMessages, isDeploying: false }),
     Error: () => Deploy({ messages: deployMessages, isDeploying: false }),
