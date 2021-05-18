@@ -11,16 +11,16 @@ export interface UIMessage {
   isError: boolean;
 }
 
-export interface UIContract {
+export interface ContractFile {
   name: string;
-  id: string;
+  hash: string;
   methods: Array<string>;
   wasm: Uint8Array;
   json: string;
 }
 
 export interface Instance {
-  id: string;
+  hash: string;
   address: string;
 }
 

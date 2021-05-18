@@ -1,5 +1,5 @@
 import { useState } from 'react';
-import { useDispatch, useSelector } from '../../../modules/redux/store/store';
+import { useDispatch, useSelector } from '../../../modules/redux/store';
 import actions from '../../../modules/redux/actions';
 import InputValue from './InputValue';
 

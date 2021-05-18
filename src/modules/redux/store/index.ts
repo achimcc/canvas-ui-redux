@@ -40,3 +40,5 @@ export type AppDispatch = AppStore['dispatch'];
 const useDispatch = () => _useDispatch<AppDispatch>();
 
 export { wrapper, useSelector, useDispatch };
+
+export type Store = RootState;

@@ -6,17 +6,17 @@ import { Abi, ContractRx } from '@polkadot/api-contract';
 import BN from 'bn.js';
 import { AnyJson } from '@polkadot/types/types';
 import { obtainMessage } from '../utils/convertResults';
-import { Instance, UIContract } from '../types';
+import { Instance, ContractFile } from '../types';
 import { RootState } from '../store/rootReducer';
 import actions from '../actions';
 
-const deploy: Epic<any, any, RootState> = (action$, store, { api }): Observable<any> =>
+const call: Epic<any, any, RootState> = (action$, store, { api }): Observable<any> =>
   action$.pipe(
     filter(actions.contract.call.match),
     map(({ payload }) => {
       const { address, method } = payload;
-      const { id } = store.value.contracts.instances.find(i => i.address === address) as Instance;
-      const { json } = store.value.contracts.contracts.find(c => c.id === id) as UIContract;
+      const { hash } = store.value.contracts.instances.find(i => i.address === address) as Instance;
+      const { json } = store.value.contracts.contracts.find(c => c.hash === hash) as ContractFile;
       const abi = new Abi(json as any as AnyJson, api.registry.getChainProperties());
       const contract = new ContractRx(api, abi, address);
       const gas = new BN('800000000');
@@ -29,7 +29,7 @@ const deploy: Epic<any, any, RootState> = (action$, store, { api }): Observable<
       const observable = call.signAndSend(alice);
       return observable;
     }),
-    takeUntil(action$.ofType('CancelCall')),
+    takeUntil(action$.pipe(filter(actions.contract.cancelCall.match))),
     map(response => {
       const message = obtainMessage(response);
       return {
@@ -39,4 +39,4 @@ const deploy: Epic<any, any, RootState> = (action$, store, { api }): Observable<
     })
   );
 
-export default deploy;
+export default call;

@@ -10,6 +10,6 @@ export const notifyUpload = createAction(
     payload: { wasm, name, methods, hash, json },
   })
 );
-export const forget = createAction('@contract/forgetContractRequested', (id: string) => ({
-  payload: { id },
+export const forget = createAction('@contract/forgetContractRequested', (hash: string) => ({
+  payload: { hash },
 }));

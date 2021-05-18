@@ -8,15 +8,15 @@ import BN from 'bn.js';
 import { AnyJson } from '@polkadot/types/types';
 import { RootState } from '../store/rootReducer';
 import { obtainStatus } from '../utils/convertResults';
-import { UIContract } from '../types';
+import { ContractFile } from '../types';
 import actions from '../actions';
 
-const deploy: Epic<any, any, RootState> = (action$, store, { api }): Observable<any> =>
+const instantiate: Epic<any, any, RootState> = (action$, store, { api }): Observable<any> =>
   action$.pipe(
     filter(actions.contract.instantiate.match),
     map(action => {
-      const { gas, endowment, id } = action.payload;
-      const contract = store.value.contracts.contracts.find(c => c.id === id) as UIContract;
+      const { gas, endowment, hash } = action.payload;
+      const contract = store.value.contracts.contracts.find(c => c.hash === hash) as ContractFile;
       const { wasm, json } = contract;
       const abi = new Abi(json as any as AnyJson, api.registry.getChainProperties());
       const Gas = new BN(gas);
@@ -30,7 +30,7 @@ const deploy: Epic<any, any, RootState> = (action$, store, { api }): Observable<
       return instance.signAndSend(alice);
     }),
     // takeWhile((response) => !response.dispatchError),
-    takeUntil(action$.ofType('CancelDeploy')),
+    takeUntil(action$.pipe(filter(actions.contract.cancelInstantiation.match))),
     map(result => {
       const status = obtainStatus(result);
       return {
@@ -40,4 +40,4 @@ const deploy: Epic<any, any, RootState> = (action$, store, { api }): Observable<
     })
   );
 
-export default deploy;
+export default instantiate;

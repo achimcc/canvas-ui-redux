@@ -1,7 +1,7 @@
 import { CodeSubmittableResult } from '@polkadot/api-contract/base';
-import { createReducer, nanoid } from '@reduxjs/toolkit';
+import { createReducer } from '@reduxjs/toolkit';
 import { HYDRATE } from 'next-redux-wrapper';
-import { ContractStatus, UIMessage, UIContract, ConnectStatus, Instance } from '../types';
+import { ContractStatus, UIMessage, ContractFile, ConnectStatus, Instance } from '../types';
 import { obtainMessage } from '../utils/convertResults';
 import actions from '../actions';
 
@@ -9,11 +9,11 @@ export interface Instantiate {
   deployMessages: Array<UIMessage>;
   contractStatus: ContractStatus;
   contractName: string;
-  id: string;
+  hash: string;
 }
 export interface contractState {
   instantiate: Instantiate;
-  contracts: Array<UIContract>;
+  contracts: Array<ContractFile>;
   instances: Array<Instance>;
   callResults: Array<UIMessage>;
   connectStatus: ConnectStatus;
@@ -25,7 +25,7 @@ const initialState: contractState = {
     contractStatus: 'Settings',
     deployMessages: [],
     contractName: '',
-    id: '',
+    hash: '',
   },
   contracts: [],
   instances: [],
@@ -53,15 +53,8 @@ const contractReducer = createReducer(initialState, builder => {
     .addCase(actions.api.disconnected, state => {
       state.connectStatus = 'Unconnected';
     })
-    .addCase(actions.file.notifyUpload, (state, action) => {
-      const { name, methods, wasm, json } = action.payload;
-      const contract: UIContract = {
-        name,
-        json,
-        methods,
-        wasm,
-        id: nanoid(9),
-      };
+    .addCase(actions.file.notifyUpload, (state, { payload }) => {
+      const contract: ContractFile = { ...payload };
       state.contracts.push(contract);
     })
     .addCase(actions.contract.instantiateResponse, (state, action) => {
@@ -74,19 +67,17 @@ const contractReducer = createReducer(initialState, builder => {
           (result as CodeSubmittableResult<'rxjs'>).contract?.address.toString() || 'error';
 
         const instance: Instance = {
-          id: state.instantiate.id,
+          hash: state.instantiate.hash,
           address,
         };
         state.instances.push(instance);
       }
     })
-    .addCase(actions.contract.instantiate, (state, action) => {
-      state.instantiate.id = action.payload.id;
-      state.instantiate = initialState.instantiate;
+    .addCase(actions.contract.instantiate, (state, { payload: { hash } }) => {
+      state.instantiate = { ...initialState.instantiate, hash };
     })
-    .addCase(actions.file.forget, (state, action) => {
-      const { id } = action.payload;
-      state.contracts = state.contracts.filter(c => c.id !== id);
+    .addCase(actions.file.forget, (state, { payload: { hash } }) => {
+      state.contracts = state.contracts.filter(c => c.hash !== hash);
     })
     .addCase(actions.contract.forgetInstance, (state, action) => {
       const { address } = action.payload;
