@@ -4,6 +4,7 @@ import { ContractFile, Instance } from '../types';
 import { allContracts } from './file';
 
 const instanceSelector = (store: Store) => store.contracts.instances;
+const instantiateSelector = (store: Store) => store.contracts.instantiate;
 
 export const getInstancesByHash = (hash: string) =>
   createSelector(instanceSelector, instances => instances.filter(c => c.hash === hash));
@@ -20,3 +21,5 @@ export const getInstance = (address: string) =>
   createSelector([allContracts, getInstanceByAddress(address)], (contracts, instance) => {
     return contracts.find(c => c.hash === instance.hash) as ContractFile;
   });
+
+export const getInstantiate = createSelector(instantiateSelector, instantiate => instantiate);

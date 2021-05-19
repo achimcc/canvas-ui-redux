@@ -3,12 +3,15 @@ import { useDispatch as _useDispatch } from 'react-redux';
 import { createAction } from '@reduxjs/toolkit';
 import { ContractStatus, UIMessage } from '../types';
 
+export const startInstantiation = createAction('@contract/startInstantiationRequested');
+
 export const instantiate = createAction(
   '@contract/instaceRequested',
   (hash: string, gas: string, endowment: string) => ({
     payload: { hash, gas, endowment },
   })
 );
+
 export const instanceResponse = createAction('@contract/response', (message: UIMessage) => ({
   payload: { message },
 }));

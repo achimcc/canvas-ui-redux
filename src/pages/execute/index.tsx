@@ -1,5 +1,5 @@
 import { Meta } from '@layout/Meta';
-import { useSelector, selectors } from '../../modules/redux';
+import { useSelector, selectors, wrapper } from '../../modules/redux';
 import ContractInstance from '../../common/components/execute/ContractInstance';
 import { Main } from '../../templates/Main';
 
@@ -17,3 +17,7 @@ const ExecutePage = () => {
 };
 
 export default ExecutePage;
+
+export const getServerSideProps = wrapper.getServerSideProps(async ({ store }) => {
+  Promise.resolve();
+});

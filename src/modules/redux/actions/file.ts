@@ -6,8 +6,8 @@ export const upload = createAction('@file/Uploaded', (file: File) => ({
 }));
 export const notifyUpload = createAction(
   '@file/Stored',
-  (wasm: Uint8Array, name: string, methods: Array<string>, hash: string, json: string) => ({
-    payload: { wasm, name, methods, hash, json },
+  (name: string, methods: Array<string>, hash: string, json: string) => ({
+    payload: { name, methods, hash, json },
   })
 );
 export const forget = createAction('@contract/forgetContractRequested', (hash: string) => ({

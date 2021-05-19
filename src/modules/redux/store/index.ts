@@ -10,6 +10,7 @@ import rootReducer, { RootState } from '../reducers';
 import { Dependencies } from '../types';
 
 import rootEpic from '../epics';
+import actions from '../actions';
 
 let api: ApiRx;
 
@@ -28,7 +29,14 @@ const makeStore = () => {
   const store = configureStore({
     reducer: persistedReducer,
     middleware: getDefaultMiddleware =>
-      getDefaultMiddleware().prepend(epicMiddleware).concat(logger),
+      getDefaultMiddleware({
+        serializableCheck: {
+          // Ignore these action types
+          ignoredActions: [actions.file.upload.type],
+        },
+      })
+        .prepend(epicMiddleware)
+        .concat(logger),
   });
   epicMiddleware.run(rootEpic);
   return store;

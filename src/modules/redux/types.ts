@@ -1,12 +1,6 @@
 import { ApiRx } from '@polkadot/api';
 
-export type ContractStatus =
-  | 'Endpoint'
-  | 'Upload'
-  | 'Settings'
-  | 'Deployed'
-  | 'Deploying'
-  | 'Error';
+export type ContractStatus = 'Settings' | 'Deploying' | 'Deployed' | 'Error';
 
 export interface UIMessage {
   text: string;
@@ -17,7 +11,6 @@ export interface ContractFile {
   name: string;
   hash: string;
   methods: Array<string>;
-  wasm: Uint8Array;
   json: string;
 }
 
@@ -31,7 +24,7 @@ export interface ContractInstance {
   address: string | undefined;
 }
 
-export type ConnectStatus = 'Unconnected' | 'Connected' | 'Error';
+export type ConnectStatus = 'Unconnected' | 'Connecting' | 'Connected' | 'Error';
 
 export interface Dependencies {
   setApi: (apiToSet: ApiRx) => void;

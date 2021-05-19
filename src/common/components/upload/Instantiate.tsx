@@ -1,4 +1,4 @@
-import { useSelector } from '../../../modules/redux';
+import { useSelector, selectors } from '../../../modules/redux';
 import Connect from '../connect/Connect';
 import Progress from '../shared/Progress/Progress';
 import Deploy from '../instantiate/Deploy';
@@ -10,7 +10,7 @@ interface Props {
 }
 
 const Instantiate = ({ hash }: Props) => {
-  const { contractStatus, deployMessages } = useSelector(store => store.contracts.instantiate);
+  const { contractStatus, deployMessages } = useSelector(selectors.instance.getInstantiate);
   const progress = {
     Endpoint: 0,
     Upload: 25,

@@ -40,12 +40,10 @@ const contractReducer = createReducer(initialState, builder => {
       state = state;
     })
     .addCase(actions.api.connected, state => {
-      state.instantiate.contractStatus = 'Upload';
       state.connectStatus = 'Connected';
     })
     .addCase(actions.api.connect, (state, action) => {
-      state.instantiate.contractStatus = 'Upload';
-      state.connectStatus = 'Connected';
+      state.connectStatus = 'Connecting';
       state.connectUrl = action.payload.url;
     })
     .addCase(actions.api.disconnected, state => {
@@ -54,6 +52,9 @@ const contractReducer = createReducer(initialState, builder => {
     .addCase(actions.file.notifyUpload, (state, { payload }) => {
       const contract: ContractFile = { ...payload };
       state.contracts.push(contract);
+    })
+    .addCase(actions.instance.startInstantiation, state => {
+      state.instantiate = initialState.instantiate;
     })
     .addCase(actions.instance.instantiated, (state, action) => {
       const { result, status } = action.payload;

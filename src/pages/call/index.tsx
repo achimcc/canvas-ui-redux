@@ -3,7 +3,7 @@ import { Meta } from '@layout/Meta';
 import Call from '../../common/components/call/Call';
 import CallResults from '../../common/components/call/CallResults';
 import SelectInstance from '../../common/components/call/SelectInstance';
-import { useDispatch } from '../../modules/redux';
+import { useActions, wrapper } from '../../modules/redux';
 import { Main } from '../../templates/Main';
 
 interface Params {
@@ -12,10 +12,10 @@ interface Params {
 
 const CallPage = ({ address }: Params) => {
   const [selectedAddress, setSelectedAddress] = useState<string | undefined>(address);
-  const dispatch = useDispatch();
+  const { instance } = useActions();
   useEffect(() => {
-    dispatch({ type: 'ClearCallResults' });
-  }, [dispatch]);
+    instance.clearResult();
+  }, [instance]);
   return (
     <Main meta={<Meta description="..." title="Canvas UI" />}>
       <div className="h-100 w-full flex items-center justify-center bg-teal-lightest font-sans my-3.5">
@@ -32,3 +32,7 @@ const CallPage = ({ address }: Params) => {
   );
 };
 export default CallPage;
+
+export const getServerSideProps = wrapper.getServerSideProps(async ({ store }) => {
+  Promise.resolve();
+});

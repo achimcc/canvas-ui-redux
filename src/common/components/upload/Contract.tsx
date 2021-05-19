@@ -8,8 +8,8 @@ interface Props {
 
 const Contract = ({ contract: { name, hash } }: Props) => {
   const { file } = useActions();
-  const onDelete = () => file.forget(hash);
   const { show, RenderModal } = useModal();
+  const onDelete = () => file.forget(hash);
   const onInstantiate = () => {
     show();
   };

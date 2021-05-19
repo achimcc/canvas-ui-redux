@@ -20,9 +20,10 @@ const instantiate: Epic<any, any, RootState, Dependencies> = (
     map(action => {
       const { gas, endowment, hash } = action.payload;
       const contract = store.value.contracts.contracts.find(c => c.hash === hash) as ContractFile;
-      const { wasm, json } = contract;
+      const { json } = contract;
       const api = getApi();
       const abi = new Abi(json as any as AnyJson, api.registry.getChainProperties());
+      const wasm = abi.project.source.wasm;
       const Gas = new BN(gas);
       const Endowment = new BN(endowment);
       const fromCode = new CodeRx(api, abi, wasm).tx.new(Endowment, Gas, 0);
