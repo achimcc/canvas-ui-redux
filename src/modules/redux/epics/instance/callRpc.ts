@@ -41,7 +41,7 @@ const callRpc: Epic<any, any, RootState, Dependencies> = (
         text: `RPC Call output: ${response.output}`,
         isError: false,
       };
-      actions.instance.instanceResponse(message);
+      return actions.instance.instanceResponse(message);
     })
   );
 

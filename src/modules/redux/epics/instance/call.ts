@@ -37,7 +37,7 @@ const call: Epic<any, any, RootState, Dependencies> = (
     takeUntil(action$.pipe(filter(actions.instance.cancelCall.match))),
     map(response => {
       const message = obtainMessage(response);
-      actions.instance.instanceResponse(message);
+      return actions.instance.instanceResponse(message);
     })
   );
 
