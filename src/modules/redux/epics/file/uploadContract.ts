@@ -14,7 +14,7 @@ const uploadContract: Epic<any, any, RootState, Dependencies> = (
   { getApi }
 ): Observable<any> =>
   action$.pipe(
-    filter(actions.file.upload.match),
+    filter(actions.file.save.match),
     mergeMap(action => {
       //     const promise = (action.payload as File).text();
       const { file } = action.payload;
@@ -39,7 +39,7 @@ const uploadContract: Epic<any, any, RootState, Dependencies> = (
       const abi = new Abi(json, api.registry.getChainProperties());
       const methods = abi.messages.map(({ identifier }) => identifier);
       const hash = abi.project.hash.toString();
-      return actions.file.notifyUpload(name, methods, hash, json);
+      return actions.file.notifySaved(name, methods, hash, json);
     })
   );
 

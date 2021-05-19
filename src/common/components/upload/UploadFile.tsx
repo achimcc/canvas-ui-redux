@@ -15,7 +15,7 @@ const UploadFile = ({ onSave }: Props) => {
   };
   const _onSave = () => {
     if (!selectedFile) return;
-    file.upload(selectedFile);
+    file.save(selectedFile);
     onSave();
   };
 

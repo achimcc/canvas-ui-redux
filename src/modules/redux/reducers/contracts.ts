@@ -47,7 +47,7 @@ const contractReducer = createReducer(initialState, builder => {
     .addCase(actions.api.disconnected, state => {
       state.connectStatus = 'Unconnected';
     })
-    .addCase(actions.file.notifyUpload, (state, { payload }) => {
+    .addCase(actions.file.notifySaved, (state, { payload }) => {
       const contract: ContractFile = { ...payload };
       state.contracts.push(contract);
     })

@@ -26,7 +26,7 @@ const makeStore: MakeStore = () => {
       getDefaultMiddleware({
         serializableCheck: {
           // Ignore these action types
-          ignoredActions: [actions.file.upload.type],
+          ignoredActions: [actions.file.save.type],
         },
       })
         .prepend(epicMiddleware)
