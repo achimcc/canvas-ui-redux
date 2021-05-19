@@ -18,7 +18,7 @@ export const getInstanceByAddress = (address: string) =>
 export const getAll = createSelector(instanceSelector, instances => instances);
 
 export const getInstance = (address: string) =>
-  createSelector([allContracts, getInstanceByAddress(address)], (contracts, instance) => {
+  createSelector(allContracts, getInstanceByAddress(address), (contracts, instance) => {
     return contracts.find(c => c.hash === instance.hash) as ContractFile;
   });
 

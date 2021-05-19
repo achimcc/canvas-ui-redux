@@ -1,22 +1,19 @@
 import { useState } from 'react';
 import { Switch } from '@headlessui/react';
-import { useDispatch, useSelector, selectors, actions } from '../../../modules/redux';
+import { useSelector, selectors, useActions } from '../../../modules/redux';
 
 interface Props {
   address: string;
 }
 
 const Call = ({ address }: Props) => {
-  const dispatch = useDispatch();
+  console.log('Call, address: ', address);
+  const { instance } = useActions();
   const { methods } = useSelector(selectors.instance.getInstance(address));
   const [method, setMethod] = useState<string>();
   const [rpc, setRpc] = useState<boolean>(true);
   const onCall = () =>
-    method &&
-    address &&
-    dispatch(
-      rpc ? actions.instance.callRpc(address, method) : actions.instance.call(address, method)
-    );
+    method && (address && rpc ? instance.callRpc(address, method) : instance.call(address, method));
   return (
     <>
       {address && (
