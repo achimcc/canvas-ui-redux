@@ -1,7 +1,7 @@
 import React from 'react';
 import { Meta } from '@layout/Meta';
 import { Main } from '../../templates/Main';
-import { useModal } from '../../common/components/shared/Modal/useModal';
+import { useModal } from '../../common/components/shared/modal/useModal';
 import Upload from '../../common/components/upload/UploadFile';
 import Contracts from '../../common/components/upload/ContractList';
 

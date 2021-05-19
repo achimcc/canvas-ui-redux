@@ -1,6 +1,6 @@
 import { useState } from 'react';
-import { useActions, useSelector, selectors } from '../../../modules/redux';
-import InputValue from '../shared/InputValue';
+import { useActions, useSelector, selectors } from '../../../../modules/redux';
+import InputValue from '../../shared/InputValue';
 
 interface Props {
   hash: string;

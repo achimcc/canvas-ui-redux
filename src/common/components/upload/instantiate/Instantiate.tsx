@@ -1,6 +1,6 @@
 import { useRouter } from 'next/router';
-import { UIMessage, useActions } from '../../../modules/redux';
-import Message from '../shared/Message';
+import { UIMessage, useActions } from '../../../../modules/redux';
+import Message from '../../shared/Message';
 import Cancel from './Cancel';
 
 interface Props {

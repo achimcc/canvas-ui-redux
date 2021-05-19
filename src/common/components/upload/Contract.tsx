@@ -1,6 +1,6 @@
 import { ContractFile, useActions } from '../../../modules/redux';
-import { useModal } from '../shared/Modal/useModal';
-import Instantiate from '../instantiate/InstantiateWizard';
+import { useModal } from '../shared/modal/useModal';
+import Instantiate from './instantiate/InstantiateWizard';
 
 interface Props {
   contract: ContractFile;

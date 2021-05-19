@@ -1,5 +1,5 @@
-import { useSelector, selectors } from '../../../modules/redux';
-import Progress from '../shared/Progress/Progress';
+import { useSelector, selectors } from '../../../../modules/redux';
+import Progress from '../../shared/progress/Progress';
 import Instantiate from './Instantiate';
 import Settings from './Settings';
 
