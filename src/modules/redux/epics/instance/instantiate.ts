@@ -13,14 +13,14 @@ import actions from '../../actions';
 
 const instantiate: Epic<any, any, RootState, Dependencies> = (
   action$,
-  { value: { contracts } },
+  store,
   { getApi }
 ): Observable<any> =>
   action$.pipe(
     filter(actions.instance.instantiate.match),
     map(action => {
       const { gas, endowment, hash } = action.payload;
-      const contract = contracts.contracts.find(c => c.hash === hash) as ContractFile;
+      const contract = store.value.contracts.contracts.find(c => c.hash === hash) as ContractFile;
       const { json } = contract;
       const api = getApi();
       const abi = new Abi(json as any as AnyJson, api.registry.getChainProperties());
