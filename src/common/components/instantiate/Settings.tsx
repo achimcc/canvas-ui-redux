@@ -11,7 +11,7 @@ const Settings = ({ hash }: Props) => {
   const { name = 'Error' } = useSelector(selectors.file.byHash(hash));
   const [gas, setGas] = useState<string>('200000000000');
   const [endowment, setEndowment] = useState<string>('1000000000000000');
-  const onInstantiate = () => instance.instantiate(gas, endowment, hash);
+  const onInstantiate = () => instance.instantiate(hash, gas, endowment);
   return (
     <>
       <h2>{name}</h2>

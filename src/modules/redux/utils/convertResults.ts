@@ -31,8 +31,8 @@ export const obtainMessage = (result: ISubmittableResult): UIMessage => {
 
 export const obtainStatus = (result: ISubmittableResult): ContractStatus => {
   if (result.dispatchError) return 'Error';
-  else if (result.isFinalized) return 'Deployed';
-  else return 'Deploying';
+  else if (result.isFinalized) return 'Instantiated';
+  else return 'Instantiating';
 };
 
 export const obtainAddress = (result: ISubmittableResult, api: ApiRx): string => {

@@ -22,14 +22,14 @@ const Progress = ({ progress }: Props) => {
         <div className="flex">
           <Step path={Endpoint} label="Select Endpoint" />
           <Step
-            path={Contract}
-            label="Upload Contract"
+            path={Settings}
+            label="Contract Settings"
             progress={progress >= 25 ? 100 : progress * 4}
           />
           <Step
-            path={Settings}
+            path={Contract}
             progress={progress >= 50 ? 100 : progress < 25 ? 0 : (progress % 25) * 4}
-            label="Contract Settings"
+            label="Deplying"
           />
           <Step
             progress={progress >= 75 ? 100 : progress < 50 ? 0 : (progress % 25) * 4}

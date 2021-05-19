@@ -61,7 +61,7 @@ const contractReducer = createReducer(initialState, builder => {
       const message = obtainMessage(result);
       state.instantiate.deployMessages.push(message);
       state.instantiate.contractStatus = status;
-      if (status === 'Deployed') {
+      if (status === 'Instantiated') {
         const address =
           (result as CodeSubmittableResult<'rxjs'>).contract?.address.toString() || 'error';
 

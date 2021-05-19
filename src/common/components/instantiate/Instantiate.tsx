@@ -7,7 +7,7 @@ interface Props {
   isDeploying?: boolean;
 }
 
-const Deploy = ({ messages, isDeploying }: Props) => {
+const Instantiate = ({ messages, isDeploying }: Props) => {
   const { instance } = useActions();
   const history = [];
   const onCancelDeploy = () => instance.cancelInstantiation();
@@ -35,4 +35,4 @@ const Deploy = ({ messages, isDeploying }: Props) => {
   );
 };
 
-export default Deploy;
+export default Instantiate;

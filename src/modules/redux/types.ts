@@ -1,6 +1,6 @@
 import { ApiRx } from '@polkadot/api';
 
-export type ContractStatus = 'Settings' | 'Deploying' | 'Deployed' | 'Error';
+export type ContractStatus = 'Settings' | 'Instantiating' | 'Instantiated' | 'Error';
 
 export interface UIMessage {
   text: string;
