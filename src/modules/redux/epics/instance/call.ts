@@ -12,15 +12,15 @@ import actions from '../../actions';
 
 const call: Epic<any, any, RootState, Dependencies> = (
   action$,
-  store,
+  { value: { contracts } },
   { getApi }
 ): Observable<any> =>
   action$.pipe(
     filter(actions.instance.call.match),
     map(({ payload }) => {
       const { address, method } = payload;
-      const { hash } = store.value.contracts.instances.find(i => i.address === address) as Instance;
-      const { json } = store.value.contracts.contracts.find(c => c.hash === hash) as ContractFile;
+      const { hash } = contracts.instances.find(i => i.address === address) as Instance;
+      const { json } = contracts.contracts.find(c => c.hash === hash) as ContractFile;
       const api = getApi();
       const abi = new Abi(json as any as AnyJson, api.registry.getChainProperties());
       const contract = new ContractRx(api, abi, address);

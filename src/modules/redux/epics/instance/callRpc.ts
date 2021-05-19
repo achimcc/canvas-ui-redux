@@ -12,16 +12,15 @@ import { Dependencies } from '../../types';
 
 const callRpc: Epic<any, any, RootState, Dependencies> = (
   action$,
-  store,
+  { value: { contracts } },
   { getApi }
 ): Observable<any> =>
   action$.pipe(
     filter(actions.instance.callRpc.match),
-    map(action => {
-      const { address } = action.payload;
-      const { hash } = store.value.contracts.instances.find(i => i.address === address) || {};
-      const { json } = store.value.contracts.contracts.find(c => c.hash === hash) || {};
-      return { ...action.payload, hash, json };
+    map(({ payload }) => {
+      const { hash } = contracts.instances.find(i => i.address === payload.address) || {};
+      const { json } = contracts.contracts.find(c => c.hash === hash) || {};
+      return { ...payload, hash, json };
     }),
     filter(({ hash, json }) => !!hash && !!json),
     mergeMap(({ address, method, json }) => {
