@@ -10,7 +10,7 @@ interface Props {
 const InstantiateWizard = ({ hash }: Props) => {
   const { contractStatus, deployMessages } = useSelector(selectors.instance.getInstantiate);
   const progress = {
-    Settings: 50,
+    Settings: 20,
     Instantiating: 60,
     Instantiated: 100,
     Error: 0,

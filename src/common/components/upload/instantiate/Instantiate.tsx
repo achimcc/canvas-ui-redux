@@ -12,9 +12,8 @@ const Instantiate = ({ messages, isDeploying }: Props) => {
   const { instance } = useActions();
   const history = useRouter();
   const onCancelDeploy = () => instance.cancelInstantiation();
-  const onSuccess = () => {
-    history.push('/execute');
-  };
+  const onSuccess = () => history.push('/execute');
+
   return (
     <>
       {messages.map(message => (

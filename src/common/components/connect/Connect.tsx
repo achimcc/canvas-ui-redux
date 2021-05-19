@@ -6,9 +6,7 @@ const Connect = () => {
   const { api } = useActions();
   const [url, setUrl] = useState<string>('ws://127.0.0.1:9944');
   const connectStatus = useSelector(selectors.api.status);
-  const onConnect = () => {
-    api.connect(url);
-  };
+  const onConnect = () => api.connect(url);
   const onDisconnect = () => api.disconnect();
 
   return (
