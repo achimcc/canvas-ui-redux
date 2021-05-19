@@ -9,7 +9,7 @@ const ExecutePage = () => {
     <Main meta={<Meta description="..." title="Canvas UI" />}>
       <div className="bg-white rounded shadow p-6 m-4 w-full">
         {instances.map(instance => (
-          <ContractInstance instance={instance} />
+          <ContractInstance key={instance.hash} instance={instance} />
         ))}
       </div>
     </Main>

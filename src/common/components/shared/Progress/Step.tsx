@@ -10,7 +10,7 @@ const Icon = ({ path, label, progress = false }: Props) => {
   const isActive = progress === false || progress === 100;
   return (
     <>
-      <div className="w-1/4">
+      <div className="w-1/3">
         <div className="relative mb-2">
           {(progress || progress === 0) && <Bar progress={progress} />}
           <div

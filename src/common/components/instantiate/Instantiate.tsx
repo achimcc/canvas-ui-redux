@@ -1,3 +1,4 @@
+import { useRouter } from 'next/router';
 import { UIMessage, useActions } from '../../../modules/redux';
 import Message from '../shared/Message';
 import Cancel from './Cancel';
@@ -9,7 +10,7 @@ interface Props {
 
 const Instantiate = ({ messages, isDeploying }: Props) => {
   const { instance } = useActions();
-  const history = [];
+  const history = useRouter();
   const onCancelDeploy = () => instance.cancelInstantiation();
   const onSuccess = () => {
     history.push('/execute');
