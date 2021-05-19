@@ -1,4 +1,3 @@
-import { CodeSubmittableResult } from '@polkadot/api-contract/base';
 import { createReducer } from '@reduxjs/toolkit';
 import { HYDRATE } from 'next-redux-wrapper';
 import { ContractStatus, UIMessage, ContractFile, ConnectStatus, Instance } from '../types';
