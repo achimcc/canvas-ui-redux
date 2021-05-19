@@ -41,9 +41,9 @@ export const forget = createAction('@contract/forget', (address: string) => ({
   payload: { address },
 }));
 
-export const instantiated = createAction(
-  '@contract/instantiated',
-  (result: ISubmittableResult, status: ContractStatus) => ({
-    payload: { result, status },
+export const instantiation = createAction(
+  '@contract/instantiation',
+  (status: ContractStatus, message: UIMessage, address: string) => ({
+    payload: { status, message, address },
   })
 );

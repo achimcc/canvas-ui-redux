@@ -2,7 +2,6 @@ import { CodeSubmittableResult } from '@polkadot/api-contract/base';
 import { createReducer } from '@reduxjs/toolkit';
 import { HYDRATE } from 'next-redux-wrapper';
 import { ContractStatus, UIMessage, ContractFile, ConnectStatus, Instance } from '../types';
-import { obtainMessage } from '../utils/convertResults';
 import actions from '../actions';
 
 export interface Instantiate {
@@ -56,15 +55,11 @@ const contractReducer = createReducer(initialState, builder => {
     .addCase(actions.instance.startInstantiation, state => {
       state.instantiate = initialState.instantiate;
     })
-    .addCase(actions.instance.instantiated, (state, action) => {
-      const { result, status } = action.payload;
-      const message = obtainMessage(result);
+    .addCase(actions.instance.instantiation, (state, action) => {
+      const { status, message, address } = action.payload;
       state.instantiate.deployMessages.push(message);
       state.instantiate.contractStatus = status;
       if (status === 'Instantiated') {
-        const address =
-          (result as CodeSubmittableResult<'rxjs'>).contract?.address.toString() || 'error';
-
         const instance: Instance = {
           hash: state.instantiate.hash,
           address,

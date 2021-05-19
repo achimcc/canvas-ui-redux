@@ -5,8 +5,9 @@ import { Keyring } from '@polkadot/api';
 import { Abi, CodeRx } from '@polkadot/api-contract';
 import BN from 'bn.js';
 import { AnyJson } from '@polkadot/types/types';
+import { CodeSubmittableResult } from '@polkadot/api-contract/base';
 import { RootState } from '../../reducers';
-import { obtainStatus } from '../../utils/convertResults';
+import { obtainMessage, obtainStatus } from '../../utils/convertResults';
 import { ContractFile, Dependencies } from '../../types';
 import actions from '../../actions';
 
@@ -38,7 +39,12 @@ const instantiate: Epic<any, any, RootState, Dependencies> = (
     takeUntil(action$.pipe(filter(actions.instance.cancelInstantiation.match))),
     map(result => {
       const status = obtainStatus(result);
-      return actions.instance.instantiated(result, status);
+      const message = obtainMessage(result);
+      const address =
+        status === 'Instantiated'
+          ? (result as CodeSubmittableResult<'rxjs'>).contract?.address.toString() || 'error'
+          : '';
+      return actions.instance.instantiation(status, message, address);
     })
   );
 
