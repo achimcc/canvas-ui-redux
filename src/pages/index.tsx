@@ -13,18 +13,11 @@ type Props = Record<string, unknown>;
 export default function Index(): React.ReactElement<Props> {
   return (
     <Main meta={<Meta description="..." title="Canvas UI" />}>
-      <ul>
-        <li>
-          <Link href="/">
-            <a>Home</a>
-          </Link>
-        </li>
-        <li>
-          <Link href="/connect/test?url=spiegel">
-            <a>Connect</a>
-          </Link>
-        </li>
-      </ul>
+      Welcome!{' '}
+      <Link href="/connect">
+        <a>Connect</a>
+      </Link>{' '}
+      to deploy a Contract.
     </Main>
   );
 }

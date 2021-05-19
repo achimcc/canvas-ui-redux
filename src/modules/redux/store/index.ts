@@ -1,11 +1,9 @@
 import { createSelectorHook, useDispatch as _useDispatch } from 'react-redux';
 import { configureStore } from '@reduxjs/toolkit';
 import { createEpicMiddleware } from 'redux-observable';
-import { createWrapper } from 'next-redux-wrapper';
+import { createWrapper, MakeStore } from 'next-redux-wrapper';
 import logger from 'redux-logger';
 import { ApiRx } from '@polkadot/api';
-import { persistReducer } from 'redux-persist';
-import storage from 'redux-persist/lib/storage';
 import rootReducer, { RootState } from '../reducers';
 import { Dependencies } from '../types';
 
@@ -17,17 +15,13 @@ let api: ApiRx;
 const setApi = (apiToSet: ApiRx) => (api = apiToSet);
 const getApi = () => !!api && api;
 
-const makeStore = () => {
+const makeStore: MakeStore = () => {
   const epicMiddleware = createEpicMiddleware<any, any, RootState, Dependencies>({
     dependencies: { setApi, getApi },
   });
-  const persistConfig = {
-    key: 'root',
-    storage,
-  };
-  const persistedReducer = persistReducer(persistConfig, rootReducer);
-  const store = configureStore({
-    reducer: persistedReducer,
+  let store;
+  store = configureStore({
+    reducer: rootReducer,
     middleware: getDefaultMiddleware =>
       getDefaultMiddleware({
         serializableCheck: {

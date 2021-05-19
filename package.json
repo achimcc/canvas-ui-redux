@@ -33,7 +33,6 @@
     "redux": "^4.1.0",
     "redux-logger": "^3.0.6",
     "redux-observable": "^1.2.0",
-    "redux-persist": "^6.0.0",
     "rxjs": "^6.6.7",
     "styled-jsx-plugin-postcss": "^4.0.1"
   },
