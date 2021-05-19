@@ -17,7 +17,7 @@ const SelectInstance = ({ address, onChange }: Props) => {
   );
   useEffect(() => {
     if (address) _onChange(address);
-    else if (instances && instances.length > 0) _onChange(instances[0].hash);
+    else if (instances && instances.length > 0) _onChange(instances[0].address);
   }, [selectedAddress, _onChange, address, instances]);
   return (
     <>
