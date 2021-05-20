@@ -11,7 +11,7 @@ This is just a very simple App, far from being complete. The intention is to:
 
 It doesn't manage the access to keyrings and accounts for now, instead it is using the Alice account for all Interactions by now. But this can be changed easily.
 
-The interaction with the app is done by `actions` and `selectors`. The purpose of `selectors` is to query some data from the app's store, the purpose of `actions` is to execute commands, so that both concepts are strictly seperated in concerns, following [CQRS](https://martinfowler.com/bliki/CQRS.html) API standards.
+The interaction with the app is done by `actions` and `selectors`. The purpose of `selectors` is to query some data from the app's store, the purpose of `actions` is to execute commands, so that both concepts are strictly seperated in concerns, following [CQRS](https://en.wikipedia.org/wiki/Command%E2%80%93query_separation#Command_query_responsibility_segregation) API standards.
 
 To access any data from the store, you need to import it by importing the `useSelectors` hook together with the `selectors` object. E.g. to obtain the array of all uploaded contracts, you have to write:
 
