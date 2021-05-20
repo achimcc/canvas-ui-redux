@@ -48,11 +48,13 @@ These are all the action creators which can be accessed by Frontend components a
 * `actions.instance.startInstantiation()` 
   - if you start the instantiation with a wizard, then this action resets all the Insantiation related data in the store.
 * `actions.instance.instantiate(hash: string, gas: string, endowment: string)` 
-  - this instantiates a contract on the chain whos file has been uploaded before. You just nned to provide the contracts hash to identify it, the gas and the endowment. Currently all contracts are signed on the local chain, using the Alice account. So this should carry an additional AccountId in future implementations.
+  - this instantiates a contract on the chain whos file has been uploaded before. You just nned to provide the contracts hash to identify it, the gas and the endowment. 
+  - Currently all contracts are signed on the local chain, using the Alice account. So this should carry an additional AccountId in future implementations.
 * `actions.instance.cancelInstantiation()`
   - If this action is dipatched, the Middlewqare will cancel a running instantiation.
 * `actions.instance.call(address: string, method: string, gas?: string)` 
-  - Will sign and submit a action on a smart contract which is deployed on the chain. Needs the contracts address and the method to call, the amount of gas which should be used is optional, defaults to 800000000.
+  - Will sign and submit a action on a smart contract which is deployed on the chain. 
+  - Needs the contracts address and the method to call, the amount of gas which should be used is optional, defaults to 800000000.
 * `actions.instance.callRpc(address: string, method: string, gas ?:string)` 
   - Will do an RPC call on a smart contract which is deployed on the chain. Needs the contracts address and the method to call, the amount of gas which should be used is optional, defaults to 800000000.
 * `actions.instance.cancelCall()` 
@@ -65,23 +67,29 @@ These are all the action creators which can be accessed by Frontend components a
 
 ### Queries
 
-These are all the selectors which can be used to query data from the reduxstore. If you want to obtain a contracts `instance` details by its `address`, query them with`const instance = useSelector(selectors.instance.getInstance(address))`:
+These are all the selectors which can be used to query data from the reduxstore. 
+- If you want to obtain a contracts `instance` details by its `address`, query them with`const instance = useSelector(selectors.instance.getInstance(address))`.
+- The Queries will return data which is accessible by the UI and only the data which is required to be displayed. Complicate and highly nested response objects returned by the Polkadot Api are converted by the Redux middleware to a readable version which is stored in the redux store and queried from there.
 #### Api
 * `selectors.api.status`
+  - `useSelector(selectors.api.status)` will return the connection status.
 * `selectors.api.isConnected`
 * `selectors.api.callResults`
 #### File
 * `selectors.file.byHash(hash: string)`
 * `selectors.file.allContracts`
-### Instances
+#### Instances
 * `selectors.instance.allContracts`
 * `selectors.instance.getInstance(address: string)`
 * `selectors.instance.getInstancesByHash(hash: string)` 
+   - since the contracts are identified by their hashes, `useSelector(selectors.instance.getInstancesByHash(hash))` returns an array of all instances belonging to this `hash`.
 * `selectors.instance.getInstanceByAddress(address: string)`
 * `selectors.instance.getAll`
 
+### Remarkable about Queries:
+
 Things which are worth to mention regarding querying by selectors: 
-* The way teye are build, they are memoized by default. This means that the will update and trigger a re-rendering if and only if their derived values change. This means they are memoized by default. Despite, every context object in an Webapp will trigger re-rednering whenever one value in the contexts is updated, even if the queried value remains unchanged. This is why we are having so many useMemo hooks and other memoization tools in canvas-ui.
+* The way they are build, they are memoized by default. This means that the will update and trigger a re-rendering if and only if their derived values change. This means they are memoized by default. Despite, every context object in an Webapp will trigger re-rednering whenever one value in the contexts is updated, even if the queried value remains unchanged. This is why we are having so many useMemo hooks and other memoization tools in canvas-ui.
 * They are composable and can perform computations in more complex queries, hiding away the implementation details from the UI and encapsulating them in the selectors.
 
 
@@ -127,16 +135,20 @@ export default connect;
 ```
 It creates a new Instance of the Polkadot API, and makes sure it connects to the specified API. After connecting it emits another action which informs about the updated connection state.
 3. This action will then again arrive at the reducer, where it will update the `connectStatus` from `Connecting` to `Connected`.
-    
 
 
+### Internal middleware Actions
 
-### File Actions:
+As discussed in this example, there exist actions which are dispatched by the middleware instead of by the user to persist results of async interactions to the store. These action need not to be accessed on the Frontend components, they are:
+
+#### File Actions:
 * `actions.file.notifySaved(name: string, methods: Array<string>, hash: string, json: string)` 
-### API Actions:
+#### API Actions:
 * `actions.api.connected()`
+  - Reports a succesfull connection to the canvas Node.
 * `actions.api.disconnected()`
-### Instance Actions:  
+  - Reporrts a succesfull disconnection from the canvas Node.
+#### Instance Actions:  
 * `actions.instance.instantiationRespnse(status: ContractStatus, message: UIMessage, address: string)` 
   - This action is dispatched by the middleware to inform about the instantiation progress of the contract on chain. 
   - Will do an RPC call on a smart contract which is deployed on the chain. Needs the contracts address and the method to call, the amount of gas which should be used is optional, defaults to 800000000.
