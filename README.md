@@ -18,7 +18,7 @@ To access any data from the store, you need to import it by importing the `useSe
 ```
 import {selectors, useSelectors} from '../../redux'
 ...
-const contracts=useSelector(selectors.file.contracts.allContracs)
+const contracts=useSelector(selectors.file.allContracs)
 ```
 
 The way to send commands to the API is by accessing the action with the `useActions` hook. The action creators are already wrapped with redux's dispatch function, so they will be dispatched as soon as they get called. This means, to upload a new contract file which is then available for instantiaion and to be queried as described above, you do:
