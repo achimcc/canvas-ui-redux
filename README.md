@@ -48,7 +48,7 @@ These are all the action creators which can be accessed by Frontend components a
 * `actions.instance.startInstantiation()` 
   - if you start the instantiation with a wizard, then this action resets all the Insantiation related data in the store.
 * `actions.instance.instantiate(hash: string, gas: string, endowment: string)` 
-  - this instantiates a contract on the chain whos file has been uploaded before. You just nned to provide the contracts hash to identify it, the gas and the endowment. 
+  - this instantiates a contract on the chain whose file has been uploaded before. You just have to provide the contracts hash to identify it, the gas and the endowment. 
   - Currently all contracts are signed on the local chain, using the Alice account. So this should carry an additional AccountId in future implementations.
 * `actions.instance.cancelInstantiation()`
   - If this action is dipatched, the Middlewqare will cancel a running instantiation.
