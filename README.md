@@ -109,7 +109,7 @@ This action will be treated in two different domains:
     })
     ```
     So, what it does is updating the redux store `connectStatus` value to `Connecting`.
-2. After reaching the store, it will bre processed by all the epics of the middleware. The Epics are observables listening to the dispatched actions. If the actions ind is listenign to gets dispatched, it is processing a series of possibly asynchroous tasks and finally dispatching other action containing the processing results (e.g. responses from a Smart Contract Call). You can see all epics in the folder `/modules/redux/epics` and this is already all the business logic which treats the interactions with Polkadot API.
+2. After reaching the store, it will bre processed by all the epics of the middleware. The Epics are observables, each listening to the dispatch of a speicific action. If the action it is listening to gets dispatched, it is processing a series of possibly asynchroous tasks and finally dispatching other action containing the results of the asynchronous tasks (e.g. responses from a Smart Contract Call). You can see all epics in the folder `/modules/redux/epics` and this is already all the business logic which treats the interactions with Polkadot API.
 In case of actions.api.connect, the following epic will run:
 ```
 const connect: Epic<Action<any>, Action<any>, RootState, Dependencies> = (
