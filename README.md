@@ -89,7 +89,7 @@ These are all the selectors which can be used to query data from the reduxstore.
 ### Remarkable about Queries:
 
 Things which are worth to mention regarding querying by selectors: 
-* The way they are build, they are memoized by default. This means that they will trigger a re-rendering if and only if their derived values change. This means they are memoized by default. Despite, every context object in an Webapp will trigger re-rednering whenever one value in the context gets updated, even if the queried value remains unchanged. This is why we are having so many useMemo hooks and other memoization tools in canvas-ui.
+* The way they are build, they will trigger a re-rendering if and only if their derived values change. This means they are memoized by default. Despite, every context object in a Webapp will trigger a re-rednering whenever one value in the context gets updated, even if the queried value remains unchanged. This is why we are having so many useMemo hooks and other memoization tools in canvas-ui.
 * They are composable and can perform computations in more complex queries, hiding away the implementation details from the UI and encapsulating them in the selectors.
 
 
