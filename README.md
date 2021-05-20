@@ -32,7 +32,7 @@ actions.file.upload(file)
 ```
 ## Interacting with the API:
 
-In this chapter I describe methods needed by Frontend compnents to interact with the API. Everything else is abstracted away from the Fronmtend components and is handled in the Redux internals. So if you just want to write Frontend components interacting with the Canvas chain, this chapter is all you need to know.
+In this chapter I describe methods needed by Frontend components to interact with the API. Everything else is abstracted away from the Frontend components and is handled in the Redux internals. So if you just want to write Frontend components interacting with the Canvas chain, this chapter is all you need to know.
 
 ### Actions
 
