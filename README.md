@@ -15,10 +15,11 @@ The interaction with the app is done by actions and selectors. The purpose of se
 
 To access any data from the store, you need to import it by importing the `useSelectors` hook together with the `selectors` object. E.g. to obtain the array of all uploaded contracts, you have to write:
 
-``
+```
 import {selectors, useSelectors} from '../../redux'
 ...
-const contracts=useSelector(selectors.file.contracts.allContracs)``
+const contracts=useSelector(selectors.file.contracts.allContracs)
+```
 
 The way to upload any data is by accessing the action with the `useActions` hook. The  creators are already wrapped with redux's dispatch funciton, so the will be dispatched as soon as they are calles. This means to upload a new contract file which is then available for instantiaion and to be queried as descried above, you do:
 
@@ -30,7 +31,7 @@ actions.file.upload(file)
 ```
 ## Interacting with the API:
 
-In this chapter I describe methods needed by Frontend compnents to interact with the API. Everything else is abstracted away from the Fronmtend components and is handled in the Redux internals.
+In this chapter I describe methods needed by Frontend compnents to interact with the API. Everything else is abstracted away from the Fronmtend components and is handled in the Redux internals. So if you just want to write Frontend components interacting with the Canvas chain, this chapter is all you need to know.
 
 ### Actions
 
@@ -62,6 +63,25 @@ These are all the action creators which can be accessed by Frontend components a
 
 
 ### Queries
+
+These are all the selectors which can be used to query data from the reduxstore. If you want to obtain a contracts `instance` details by its `address`, query them with`const instance = useSelector(selectors.instance.getInstance(address))`:
+#### Api
+* `selectors.api.status`
+* `selectors.api.isConnected`
+* `selectors.api.callResults`
+#### File
+* `selectors.file.byHash(hash: string)`
+* `selectors.file.allContracts`
+### Instances
+* `selectors.instance.allContracts`
+* `selectors.instance.getInstance(address: string)`
+* `selectors.instance.getInstancesByHash(hash: string)` 
+* `selectors.instance.getInstanceByAddress(address: string)`
+* `selectors.instance.getAll`
+
+Things which are worth to mention regarding querying by selectors: 
+* The way teye are build, they are memoized by default. This means that the will update and trigger a re-rendering if and only if their derived values change. This means they are memoized by default. Despite, every context object in an Webapp will trigger re-rednering whenever one value in the contexts is updated, even if the queried value remains unchanged. This is why we are having so many useMemo hooks and other memoization tools in canvas-ui.
+* They are composable and can perform computations in more complex queries, hiding away the implementation details from the UI and encapsulating them in the selectors.
 
 
 ## How the interaction works with Redux and Rxjs:
