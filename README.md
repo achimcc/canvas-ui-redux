@@ -21,11 +21,12 @@ import {selectors, useSelectors} from '../../redux'
 const contracts=useSelector(selectors.file.contracts.allContracs)
 ```
 
-The way to upload any data is by accessing the action with the `useActions` hook. The  creators are already wrapped with redux's dispatch funciton, so the will be dispatched as soon as they are calles. This means to upload a new contract file which is then available for instantiaion and to be queried as descried above, you do:
+The way to send commands to the API is by accessing the action with the `useActions` hook. The action creators are already wrapped with redux's dispatch function, so they will be dispatched as soon as they get called. This means, to upload a new contract file which is then available for instantiaion and to be queried as descried above, you do:
 
 ```
 import {useActions} from '../../redux'
 ...
+const actions = useActions()
 const file=... //some file to upload
 actions.file.upload(file)
 ```
