@@ -95,21 +95,21 @@ Things which are worth to mention regarding querying by selectors:
 
 ## How the interaction works with Redux and Rxjs:
 
-Every time a user is calling an action creator like `actions.api.connect('ws://127.0.0.1')`, an action will be disaptched. Or to be precise, this function call will dispatch the object 
+Every time a user is calling an action creator like `actions.api.connect('ws://127.0.0.1')`, an action will be disaptched. Or to be precise, calling this function will dispatch the object: 
 ```
 {type: '@api/connect', payload: {url: 'ws://127.0.0.1'}} 
 ```
 This action will be treated in two different domains:
 
-1. Within the redux reducer. The reducers task is updating the redux store with respect to the submitted action. Here for you api.connect action, you will find a case which handles it:
+1. Within the redux reducer: The reducer's task is updating the redux store with respect to the submitted action. Here for the api.connect action, you will find a case which handles it:
    ```
    .addCase(actions.api.connect, (state, action) => {
       state.connectStatus = 'Connecting';
       state.connectUrl = action.payload.url;
     })
     ```
-    So, what it does is updating the redux store `connectStatus` value to `Connecting`.
-2. After reaching the store, it will bre processed by all the epics of the middleware. The Epics are observables, each listening to the dispatch of a speicific action. If the action it is listening to gets dispatched, it is processing a series of possibly asynchroous tasks and finally dispatching other action containing the results of the asynchronous tasks (e.g. responses from a Smart Contract Call). You can see all epics in the folder `/modules/redux/epics` and this is already all the business logic which treats the interactions with Polkadot API.
+    So, what it does is updating the redux store `connectStatus` value to `Connecting`. And persisting the selected 'connectUrl' toi which the connection has been requested.
+2. After reaching the store, it will be processed by all the epics of the middleware. The Epics are observables, each listening to the dispatch of a specific action. If the action it is listening to gets dispatched, it is processing a series of possibly asynchroous tasks and finally dispatching other actions containing the results of the asynchronous tasks (e.g. responses from a Smart Contract Call). You can see all epics in the folder `/modules/redux/epics` and this is already all the business logic which treats the interactions with Polkadot API.
 In case of actions.api.connect, the following epic will run:
 ```
 const connect: Epic<Action<any>, Action<any>, RootState, Dependencies> = (
