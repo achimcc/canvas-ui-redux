@@ -152,7 +152,6 @@ As discussed in this example, there exist actions which are dispatched by the mi
 #### Instance Actions:  
 * `actions.instance.instantiationRespnse(status: ContractStatus, message: UIMessage, address: string)` 
   - This action is dispatched by the middleware to inform about the instantiation progress of the contract on chain. 
-  - Will do an RPC call on a smart contract which is deployed on the chain. Needs the contracts address and the method to call, the amount of gas which should be used is optional, defaults to 800000000.
 * `actions.instance.callResponse(message: UIMessage)` 
   - The middleware will process the calls and rpcCalls. As soon as there are some answers from the Canvas Node regarding the calls ('onChain', 'Finalized', 'outOfGas'...), this action will be dispatched by the middleware which is executing the call.
 
